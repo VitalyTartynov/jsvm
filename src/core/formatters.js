@@ -4,7 +4,15 @@
  * @returns {string} Result HEX value as string
  */
 function asByte(value) {
-    return `0x${value.toString(16).padStart(2, '0').toUpperCase()}`;
+    let hexValue = value.toString(16)
+        .padStart(2, '0')
+        .toUpperCase();
+    
+    if (hexValue.length > 2) {
+        hexValue = hexValue.substring(hexValue.length - 2);
+    }
+    
+    return `0x${hexValue}`;
 }
 
 /**
@@ -13,7 +21,15 @@ function asByte(value) {
  * @returns {string} Result HEX value as string
  */
 function asWord(value) {
-    return `0x${value.toString(16).padStart(4, '0').toUpperCase()}`;
+    let hexValue = value.toString(16)
+        .padStart(4, '0')
+        .toUpperCase();
+    
+    if (hexValue.length > 4) {
+        hexValue = hexValue.substring(hexValue.length - 4);
+    }
+    
+    return `0x${hexValue}`;
 }
 
 module.exports = {
