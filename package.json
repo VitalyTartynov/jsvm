@@ -1,0 +1,24 @@
+{
+  "name": "jsvm",
+  "version": "0.0.1",
+  "description": "16 bit js virtual machine implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitalyTartynov/jsvm.git"
+  },
+  "keywords": [
+    "16bit",
+    "assembler",
+    "vm"
+  ],
+  "author": "Vitaly.Tartynov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/VitalyTartynov/jsvm/issues"
+  },
+  "homepage": "https://github.com/VitalyTartynov/jsvm#readme"
+}
