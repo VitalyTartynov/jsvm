@@ -29,7 +29,7 @@ test('cpu should contain registers', () => {
     const registers = cpu.registers;
 
     expect(registers).toBeTruthy();
-    // TODO: add check for size
+    expect(registers.buffer.byteLength).toEqual(cpu.registerNames.length * 2);
 });
 
 test('cpu should contain memory', () => {
