@@ -1,13 +1,12 @@
 ﻿const createMemory = require('./memory');
 const format = require('../core/formatters');
 
+const INSTRUCTIONS = require('../core/instruction.constant');
 const REGISTERS = require('../core/register.constant');
 
 class Cpu {
-       
-    constructor() {
-                
-        this.memory = createMemory(256);
+    constructor(memory) {
+        this.memory = memory;
         
         this.registerNames = [REGISTERS.instruction, REGISTERS.accumulator, REGISTERS.r1];
         this.registers = createMemory(this.registerNames.length * 2);
@@ -40,6 +39,22 @@ class Cpu {
         this.setRegister(REGISTERS.instruction, address + 2);
 
         return instruction;
+    }
+    
+    tick() {
+        const instruction = this.fetch();
+        
+        return this.execute(instruction);
+    }
+    
+    execute(instruction) {
+        switch (instruction) {
+        case INSTRUCTIONS.MOV_LIT_R1: {
+            const literal = this.fetch16();
+            this.setRegister(REGISTERS.r1, literal);
+            return;
+        }
+        }
     }
         
     debug() {
