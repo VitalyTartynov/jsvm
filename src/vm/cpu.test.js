@@ -37,9 +37,9 @@ test('cpu should fetch 8 bit instruction from memory', () => {
     const expectedValue = 234;
     memory.setUint8(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(registers.instructionRegister);
+    const instructionAddress = cpu.getRegister(registers.instruction);
     const actualValue = cpu.fetch();
-    const instructionAddressAfterFetch = cpu.getRegister(registers.instructionRegister);
+    const instructionAddressAfterFetch = cpu.getRegister(registers.instruction);
     
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
@@ -51,15 +51,20 @@ test('cpu should fetch 16 bit instruction from memory', () => {
     const expectedValue = 65432;
     memory.setUint16(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(registers.instructionRegister);
+    const instructionAddress = cpu.getRegister(registers.instruction);
     const actualValue = cpu.fetch16();
-    const instructionAddressAfterFetch = cpu.getRegister(registers.instructionRegister);
+    const instructionAddressAfterFetch = cpu.getRegister(registers.instruction);
 
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
     expect(instructionAddressAfterFetch).toEqual(2);
 });
 
-test('cpu should have debug log', () => {
+test('cpu should have debug registers view', () => {
     cpu.debug();
+});
+
+test('cpu should have debug memory view', () => {
+    cpu.debugMemoryAt(0);
+    cpu.debugMemoryAt(8);
 });
