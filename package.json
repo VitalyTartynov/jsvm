@@ -4,7 +4,8 @@
   "description": "16 bit js virtual machine implementation",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint --ext .js src/"
   },
   "repository": {
     "type": "git",
