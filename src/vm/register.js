@@ -13,11 +13,11 @@ class Registers {
         }, {}); 
     }
 
-    getRegister(name) {
+    get(name) {
         return this.registers.getUint16(this.registerMap[name]);
     }
 
-    setRegister(name, newValue) {
+    set(name, newValue) {
         this.registers.setUint16(this.registerMap[name], newValue);
     }
 }

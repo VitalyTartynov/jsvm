@@ -10,17 +10,17 @@ class Cpu {
     }
         
     fetch() {
-        const address = this.registers.getRegister(REGISTERS.IP);
+        const address = this.registers.get(REGISTERS.IP);
         const instruction = this.memory.getUint8(address);
-        this.registers.setRegister(REGISTERS.IP, address + 1);
+        this.registers.set(REGISTERS.IP, address + 1);
         
         return instruction;
     }
     
     fetch16() {
-        const address = this.registers.getRegister(REGISTERS.IP);
+        const address = this.registers.get(REGISTERS.IP);
         const instruction = this.memory.getUint16(address);
-        this.registers.setRegister(REGISTERS.IP, address + 2);
+        this.registers.set(REGISTERS.IP, address + 2);
 
         return instruction;
     }
@@ -35,22 +35,22 @@ class Cpu {
         switch (instruction) {
         case INSTRUCTIONS.MOV_LIT_R1: {
             const literal = this.fetch16();
-            this.registers.setRegister(REGISTERS.R1, literal);
+            this.registers.set(REGISTERS.R1, literal);
             
             return;
         }
         
         case INSTRUCTIONS.MOV_LIT_R2: {
             const literal = this.fetch16();
-            this.registers.setRegister(REGISTERS.R2, literal);
+            this.registers.set(REGISTERS.R2, literal);
             
             return;
         }
         
         case INSTRUCTIONS.ADD_REG_REG: {
-            const r1Value = this.registers.getRegister(REGISTERS.R1);
-            const r2Value = this.registers.getRegister(REGISTERS.R2);
-            this.registers.setRegister(REGISTERS.ACC, r1Value + r2Value);
+            const r1Value = this.registers.get(REGISTERS.R1);
+            const r2Value = this.registers.get(REGISTERS.R2);
+            this.registers.set(REGISTERS.ACC, r1Value + r2Value);
             
             return;
         }
@@ -59,7 +59,7 @@ class Cpu {
         
     debug() {
         this.registers.registerNames.forEach(name => {
-            console.log(`${name}: 0x${format.asWord(this.registers.getRegister(name))}`);
+            console.log(`${name}: 0x${format.asWord(this.registers.get(name))}`);
         });
     }
     
