@@ -8,7 +8,7 @@ class Cpu {
     constructor(memory) {
         this.memory = memory;
         
-        this.registerNames = [REGISTERS.ip, REGISTERS.acc, REGISTERS.r1, REGISTERS.r2];
+        this.registerNames = [REGISTERS.IP, REGISTERS.ACC, REGISTERS.R1, REGISTERS.R2];
         this.registers = createMemory(this.registerNames.length * 2);
 
         this.registerMap = this.registerNames.reduce((map, name, i) => {
@@ -26,17 +26,17 @@ class Cpu {
     }
     
     fetch() {
-        const address = this.getRegister(REGISTERS.ip);
+        const address = this.getRegister(REGISTERS.IP);
         const instruction = this.memory.getUint8(address);
-        this.setRegister(REGISTERS.ip, address + 1);
+        this.setRegister(REGISTERS.IP, address + 1);
         
         return instruction;
     }
     
     fetch16() {
-        const address = this.getRegister(REGISTERS.ip);
+        const address = this.getRegister(REGISTERS.IP);
         const instruction = this.memory.getUint16(address);
-        this.setRegister(REGISTERS.ip, address + 2);
+        this.setRegister(REGISTERS.IP, address + 2);
 
         return instruction;
     }
@@ -51,22 +51,22 @@ class Cpu {
         switch (instruction) {
         case INSTRUCTIONS.MOV_LIT_R1: {
             const literal = this.fetch16();
-            this.setRegister(REGISTERS.r1, literal);
+            this.setRegister(REGISTERS.R1, literal);
             
             return;
         }
         
         case INSTRUCTIONS.MOV_LIT_R2: {
             const literal = this.fetch16();
-            this.setRegister(REGISTERS.r2, literal);
+            this.setRegister(REGISTERS.R2, literal);
             
             return;
         }
         
         case INSTRUCTIONS.ADD_REG_REG: {
-            const r1Value = this.getRegister(REGISTERS.r1);
-            const r2Value = this.getRegister(REGISTERS.r2);
-            this.setRegister(REGISTERS.acc, r1Value + r2Value);
+            const r1Value = this.getRegister(REGISTERS.R1);
+            const r2Value = this.getRegister(REGISTERS.R2);
+            this.setRegister(REGISTERS.ACC, r1Value + r2Value);
             
             return;
         }

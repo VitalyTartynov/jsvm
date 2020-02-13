@@ -1,11 +1,11 @@
-﻿const ip = 'ip';
-const acc = 'acc';
-const r1 = 'r1';
-const r2 = 'r2';
+﻿const IP = 'ip';
+const ACC = 'acc';
+const R1 = 'r1';
+const R2 = 'r2';
 
 module.exports = {
-    ip,
-    acc,
-    r1,
-    r2
+    IP,
+    ACC,
+    R1,
+    R2
 };

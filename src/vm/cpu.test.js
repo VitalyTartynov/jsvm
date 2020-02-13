@@ -40,9 +40,9 @@ test('cpu should fetch 8 bit instruction from memory', () => {
     const expectedValue = 234;
     memory.setUint8(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(REGISTERS.ip);
+    const instructionAddress = cpu.getRegister(REGISTERS.IP);
     const actualValue = cpu.fetch();
-    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.ip);
+    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.IP);
     
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
@@ -53,9 +53,9 @@ test('cpu should fetch 16 bit instruction from memory', () => {
     const expectedValue = 65432;
     memory.setUint16(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(REGISTERS.ip);
+    const instructionAddress = cpu.getRegister(REGISTERS.IP);
     const actualValue = cpu.fetch16();
-    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.ip);
+    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.IP);
 
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
@@ -69,8 +69,8 @@ test('cpu should execute instruction ....', () => {
     writableMemory[2] = 0xCD;
     
     cpu.tick();
-    const r1 = cpu.getRegister(REGISTERS.r1);
-    const ip = cpu.getRegister(REGISTERS.ip);
+    const r1 = cpu.getRegister(REGISTERS.R1);
+    const ip = cpu.getRegister(REGISTERS.IP);
     
     expect(format.asWord(r1)).toEqual('0xABCD');
     expect(format.asWord(ip)).toEqual('0x0003');
@@ -92,7 +92,7 @@ test('cpu should add r1 and r2 registers to accumulator', () => {
     cpu.tick();
     cpu.tick();
     
-    const acc = cpu.getRegister(REGISTERS.acc);
+    const acc = cpu.getRegister(REGISTERS.ACC);
 
     expect(format.asWord(acc)).toEqual('0x0106');
 });
