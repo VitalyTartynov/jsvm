@@ -1,9 +1,9 @@
-﻿const instructionRegister = 'ip';
-const accumulatorRegister = 'acc';
-const r1Register = 'r1';
+﻿const instruction = 'ip';
+const accumulator = 'acc';
+const r1 = 'r1';
 
 module.exports = {
-    instructionRegister,
-    accumulatorRegister,
-    r1Register
+    instruction,
+    accumulator,
+    r1
 };
