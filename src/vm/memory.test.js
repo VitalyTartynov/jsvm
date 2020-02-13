@@ -5,4 +5,5 @@ test('Memory should be createable', () => {
     const memory = createMemory(expectedSize);
     
     expect(memory).toBeTruthy();
+    expect(memory.buffer.byteLength).toBe(expectedSize);
 });
