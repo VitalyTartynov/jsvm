@@ -52,6 +52,22 @@ class Cpu {
         case INSTRUCTIONS.MOV_LIT_R1: {
             const literal = this.fetch16();
             this.setRegister(REGISTERS.r1, literal);
+            
+            return;
+        }
+        
+        case INSTRUCTIONS.MOV_LIT_R2: {
+            const literal = this.fetch16();
+            this.setRegister(REGISTERS.r2, literal);
+            
+            return;
+        }
+        
+        case INSTRUCTIONS.ADD_REG_REG: {
+            const r1Value = this.getRegister(REGISTERS.r1);
+            const r2Value = this.getRegister(REGISTERS.r2);
+            this.setRegister(REGISTERS.acc, r1Value + r2Value);
+            
             return;
         }
         }

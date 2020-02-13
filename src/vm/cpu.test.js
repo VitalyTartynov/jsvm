@@ -76,6 +76,27 @@ test('cpu should execute instruction ....', () => {
     expect(format.asWord(ip)).toEqual('0x0003');
 });
 
+test('cpu should add r1 and r2 registers to accumulator', () => {
+    const writableMemory = new Uint8Array(memory.buffer);
+    writableMemory[0] = INSTRUCTIONS.MOV_LIT_R1;
+    writableMemory[1] = 0x00;
+    writableMemory[2] = 0x03;
+    
+    writableMemory[3] = INSTRUCTIONS.MOV_LIT_R2;
+    writableMemory[4] = 0x01;
+    writableMemory[5] = 0x03;
+
+    writableMemory[6] = INSTRUCTIONS.ADD_REG_REG;
+
+    cpu.tick();
+    cpu.tick();
+    cpu.tick();
+    
+    const acc = cpu.getRegister(REGISTERS.acc);
+
+    expect(format.asWord(acc)).toEqual('0x0106');
+});
+
 test('cpu should have debug registers view', () => {
     cpu.debug();
 });
