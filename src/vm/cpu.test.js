@@ -21,7 +21,7 @@ test('cpu should be createable', () => {
 });
 
 test('cpu should contain registerNames', () => {
-    const registerNames = cpu.registers.registerNames;
+    const registerNames = cpu.registers.names;
     
     expect(registerNames).toBeTruthy();
     expect(registerNames.length).toBeGreaterThan(0);
@@ -29,10 +29,10 @@ test('cpu should contain registerNames', () => {
 
 
 test('cpu should contain registers', () => {
-    const registers = cpu.registers.registers;
+    const registers = cpu.registers.memory;
 
     expect(registers).toBeTruthy();
-    expect(registers.buffer.byteLength).toEqual(cpu.registers.registerNames.length * 2);
+    expect(registers.buffer.byteLength).toEqual(cpu.registers.names.length * 2);
 });
 
 test('cpu should contain memory', () => {
