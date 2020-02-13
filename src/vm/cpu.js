@@ -1,5 +1,5 @@
 ﻿const createMemory = require('./memory');
-const format = require('../core/formatters');
+const format = require('../core/format');
 
 const INSTRUCTIONS = require('../core/instruction.constant');
 const REGISTERS = require('../core/register.constant');

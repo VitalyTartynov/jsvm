@@ -1,4 +1,4 @@
-﻿const format = require('./formatters');
+﻿const format = require('./format');
 
 test('formatter should format byte', () => {
     const values = [
