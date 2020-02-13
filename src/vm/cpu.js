@@ -1,6 +1,7 @@
 ﻿const createMemory = require('./memory');
-const registerNames = require('../core/registers');
 const format = require('../core/formatters');
+
+const REGISTERS = require('../core/register.constant');
 
 class Cpu {
        
@@ -8,7 +9,7 @@ class Cpu {
                 
         this.memory = createMemory(256);
         
-        this.registerNames = [registerNames.instruction, registerNames.accumulator, registerNames.r1];
+        this.registerNames = [REGISTERS.instruction, REGISTERS.accumulator, REGISTERS.r1];
         this.registers = createMemory(this.registerNames.length * 2);
 
         this.registerMap = this.registerNames.reduce((map, name, i) => {
@@ -26,17 +27,17 @@ class Cpu {
     }
     
     fetch() {
-        const address = this.getRegister(registerNames.instruction);
+        const address = this.getRegister(REGISTERS.instruction);
         const instruction = this.memory.getUint8(address);
-        this.setRegister(registerNames.instruction, address + 1);
+        this.setRegister(REGISTERS.instruction, address + 1);
         
         return instruction;
     }
     
     fetch16() {
-        const address = this.getRegister(registerNames.instruction);
+        const address = this.getRegister(REGISTERS.instruction);
         const instruction = this.memory.getUint16(address);
-        this.setRegister(registerNames.instruction, address + 2);
+        this.setRegister(REGISTERS.instruction, address + 2);
 
         return instruction;
     }

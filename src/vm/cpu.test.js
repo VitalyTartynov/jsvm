@@ -1,5 +1,6 @@
 ﻿const Cpu = require('./cpu');
-const registers = require('../core/registers');
+
+const REGISTERS = require('../core/register.constant');
 
 let cpu;
 
@@ -37,9 +38,9 @@ test('cpu should fetch 8 bit instruction from memory', () => {
     const expectedValue = 234;
     memory.setUint8(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(registers.instruction);
+    const instructionAddress = cpu.getRegister(REGISTERS.instruction);
     const actualValue = cpu.fetch();
-    const instructionAddressAfterFetch = cpu.getRegister(registers.instruction);
+    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.instruction);
     
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
@@ -51,9 +52,9 @@ test('cpu should fetch 16 bit instruction from memory', () => {
     const expectedValue = 65432;
     memory.setUint16(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(registers.instruction);
+    const instructionAddress = cpu.getRegister(REGISTERS.instruction);
     const actualValue = cpu.fetch16();
-    const instructionAddressAfterFetch = cpu.getRegister(registers.instruction);
+    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.instruction);
 
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
