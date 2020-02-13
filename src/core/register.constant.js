@@ -1,9 +1,11 @@
-﻿const instruction = 'ip';
-const accumulator = 'acc';
+﻿const ip = 'ip';
+const acc = 'acc';
 const r1 = 'r1';
+const r2 = 'r2';
 
 module.exports = {
-    instruction,
-    accumulator,
-    r1
+    ip,
+    acc,
+    r1,
+    r2
 };

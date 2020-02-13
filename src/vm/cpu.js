@@ -8,7 +8,7 @@ class Cpu {
     constructor(memory) {
         this.memory = memory;
         
-        this.registerNames = [REGISTERS.instruction, REGISTERS.accumulator, REGISTERS.r1];
+        this.registerNames = [REGISTERS.ip, REGISTERS.acc, REGISTERS.r1, REGISTERS.r2];
         this.registers = createMemory(this.registerNames.length * 2);
 
         this.registerMap = this.registerNames.reduce((map, name, i) => {
@@ -26,17 +26,17 @@ class Cpu {
     }
     
     fetch() {
-        const address = this.getRegister(REGISTERS.instruction);
+        const address = this.getRegister(REGISTERS.ip);
         const instruction = this.memory.getUint8(address);
-        this.setRegister(REGISTERS.instruction, address + 1);
+        this.setRegister(REGISTERS.ip, address + 1);
         
         return instruction;
     }
     
     fetch16() {
-        const address = this.getRegister(REGISTERS.instruction);
+        const address = this.getRegister(REGISTERS.ip);
         const instruction = this.memory.getUint16(address);
-        this.setRegister(REGISTERS.instruction, address + 2);
+        this.setRegister(REGISTERS.ip, address + 2);
 
         return instruction;
     }
@@ -59,7 +59,7 @@ class Cpu {
         
     debug() {
         this.registerNames.forEach(name => {
-            console.log(`${name}: 0x${this.getRegister(name).toString(16).padStart(4, '0')}`);
+            console.log(`${name}: 0x${format.asWord(this.getRegister(name))}`);
         });
     }
     
