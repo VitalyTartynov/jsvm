@@ -4,6 +4,10 @@
  * @returns {string} Result HEX value as string
  */
 function asByte(value) {
+    if (value < 0) {
+        throw new Error('Negative values not allowed');
+    }    
+    
     let hexValue = value.toString(16)
         .padStart(2, '0')
         .toUpperCase();
@@ -21,6 +25,10 @@ function asByte(value) {
  * @returns {string} Result HEX value as string
  */
 function asWord(value) {
+    if (value < 0) {
+        throw new Error('Negative values not allowed');
+    }
+    
     let hexValue = value.toString(16)
         .padStart(4, '0')
         .toUpperCase();

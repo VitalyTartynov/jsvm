@@ -18,6 +18,15 @@ test('formatter should format byte', () => {
     });
 });
 
+test('formatter should throw error for format negative value as byte', () => {
+    // eslint-disable-next-line require-jsdoc
+    function formatNegativeByte() {
+        format.asByte(-1);
+    }
+    
+    expect(formatNegativeByte).toThrowError(); 
+});
+
 test('formatter should format word', () => {
     const values = [
         { value: 0,     result: '0x0000'},
@@ -35,4 +44,13 @@ test('formatter should format word', () => {
     values.forEach(item => {
         expect(format.asWord(item.value)).toEqual(item.result);
     });
+});
+
+test('formatter should throw error for format negative value as word', () => {
+    // eslint-disable-next-line require-jsdoc
+    function formatNegativeWord() {
+        format.asWord(-1);
+    }
+
+    expect(formatNegativeWord).toThrowError();
 });
