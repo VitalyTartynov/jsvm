@@ -1,16 +1,19 @@
 ﻿const createMemory = require('./memory');
 const Cpu = require('./cpu');
+const Registers = require('./register');
 const format = require('../core/format');
 
 const INSTRUCTIONS = require('../core/instruction.constant');
 const REGISTERS = require('../core/register.constant');
 
 let memory;
+let registers;
 let cpu;
 
 beforeEach(() => {
     memory = createMemory(256);
-    cpu = new Cpu(memory);
+    registers = new Registers();
+    cpu = new Cpu(memory, registers);
 });
 
 test('cpu should be createable', () => {
@@ -18,7 +21,7 @@ test('cpu should be createable', () => {
 });
 
 test('cpu should contain registerNames', () => {
-    const registerNames = cpu.registerNames;
+    const registerNames = cpu.registers.registerNames;
     
     expect(registerNames).toBeTruthy();
     expect(registerNames.length).toBeGreaterThan(0);
@@ -26,10 +29,10 @@ test('cpu should contain registerNames', () => {
 
 
 test('cpu should contain registers', () => {
-    const registers = cpu.registers;
+    const registers = cpu.registers.registers;
 
     expect(registers).toBeTruthy();
-    expect(registers.buffer.byteLength).toEqual(cpu.registerNames.length * 2);
+    expect(registers.buffer.byteLength).toEqual(cpu.registers.registerNames.length * 2);
 });
 
 test('cpu should contain memory', () => {
@@ -40,9 +43,9 @@ test('cpu should fetch 8 bit instruction from memory', () => {
     const expectedValue = 234;
     memory.setUint8(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(REGISTERS.IP);
+    const instructionAddress = cpu.registers.getRegister(REGISTERS.IP);
     const actualValue = cpu.fetch();
-    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.IP);
+    const instructionAddressAfterFetch = cpu.registers.getRegister(REGISTERS.IP);
     
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
@@ -53,9 +56,9 @@ test('cpu should fetch 16 bit instruction from memory', () => {
     const expectedValue = 65432;
     memory.setUint16(0, expectedValue);
 
-    const instructionAddress = cpu.getRegister(REGISTERS.IP);
+    const instructionAddress = cpu.registers.getRegister(REGISTERS.IP);
     const actualValue = cpu.fetch16();
-    const instructionAddressAfterFetch = cpu.getRegister(REGISTERS.IP);
+    const instructionAddressAfterFetch = cpu.registers.getRegister(REGISTERS.IP);
 
     expect(instructionAddress).toEqual(0);
     expect(actualValue).toEqual(expectedValue);
@@ -69,8 +72,8 @@ test('cpu should execute instruction ....', () => {
     writableMemory[2] = 0xCD;
     
     cpu.tick();
-    const r1 = cpu.getRegister(REGISTERS.R1);
-    const ip = cpu.getRegister(REGISTERS.IP);
+    const r1 = cpu.registers.getRegister(REGISTERS.R1);
+    const ip = cpu.registers.getRegister(REGISTERS.IP);
     
     expect(format.asWord(r1)).toEqual('0xABCD');
     expect(format.asWord(ip)).toEqual('0x0003');
@@ -92,7 +95,7 @@ test('cpu should add r1 and r2 registers to accumulator', () => {
     cpu.tick();
     cpu.tick();
     
-    const acc = cpu.getRegister(REGISTERS.ACC);
+    const acc = cpu.registers.getRegister(REGISTERS.ACC);
 
     expect(format.asWord(acc)).toEqual('0x0106');
 });
