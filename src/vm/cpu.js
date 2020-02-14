@@ -58,7 +58,7 @@ class Cpu {
     }
         
     debug() {
-        this.registers.names.forEach(name => {
+        this.registers.__names.forEach(name => {
             console.log(`${name}: 0x${format.asWord(this.registers.get(name))}`);
         });
     }
