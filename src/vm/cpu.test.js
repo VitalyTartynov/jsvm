@@ -76,7 +76,6 @@ test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
     expect(format.asWord(cpu.registers.get(REGISTERS.R1))).toEqual('0x0000');
     
     cpu.tick();
-    cpu.debug();
     
     expect(format.asWord(cpu.registers.get(REGISTERS.IP))).toEqual('0x0004');
     expect(format.asWord(cpu.registers.get(REGISTERS.R1))).toEqual('0xABCD');
