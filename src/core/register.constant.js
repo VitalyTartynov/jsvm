@@ -1,7 +1,7 @@
-﻿const IP = 'ip';
-const ACC = 'acc';
-const R1 = 'r1';
-const R2 = 'r2';
+﻿const IP  = 0x00;
+const ACC = 0x01;
+const R1  = 0x02;
+const R2  = 0x03;
 
 module.exports = {
     IP,
