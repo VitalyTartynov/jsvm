@@ -11,7 +11,7 @@ let registers;
 let cpu;
 
 beforeEach(() => {
-    memory = createMemory(256);
+    memory = createMemory(64);
     registers = new Registers();
     cpu = new Cpu(memory, registers);
 });

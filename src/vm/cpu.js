@@ -35,46 +35,46 @@ class Cpu {
         switch (instruction) {
             case INSTRUCTIONS.MOV_LIT_REG: {
                 const literal = this.fetch16();
-                const regValue = this.fetch();
-                const register = (regValue % this.registers._names.length) * 2;
-                this.registers._memory.setUint16(register, literal);
+                const registerAddress = this.registers.getAddress(this.fetch());
+                this.registers.setValueByAddress(registerAddress, literal);
             
                 return;
             }
         
             case INSTRUCTIONS.MOV_REG_REG: {
-                const registerFrom = (this.fetch() % this.registers._names.length) * 2;
-                const registerTo = (this.fetch() % this.registers._names.length) * 2;
-                const value = this.registers._memory.getUint16(registerFrom);
-                this.registers._memory.setUint16(registerTo, value);
+                const registerAddressFrom = this.registers.getAddress(this.fetch());
+                const registerAddressTo = this.registers.getAddress(this.fetch());
+                const value = this.registers.getValueByAddress(registerAddressFrom);
+                
+                this.registers.setValueByAddress(registerAddressTo, value);
             
                 return;
             }
         
             case INSTRUCTIONS.MOV_REG_MEM: {
-                const registerFrom = (this.fetch() % this.registers._names.length) * 2;
-                const address = this.fetch16();
-                const value = this.registers._memory.getUint16(registerFrom);
-                this.memory.setUint16(address, value);
+                const registerAddressFrom = this.registers.getAddress(this.fetch());
+                const memoryAddressTo = this.fetch16();
+                const value = this.registers.getValueByAddress(registerAddressFrom);
+                this.memory.setUint16(memoryAddressTo, value);
                 
                 return;
             }
             
             case INSTRUCTIONS.MOV_MEM_REG: {
-                const address = this.fetch16();
-                const registerTo = (this.fetch() % this.registers._names.length) * 2;
-                const value = this.memory.getUint16(address);
-                this.registers._memory.setUint16(registerTo, value);
+                const memoryAddressFrom = this.fetch16();
+                const registerAddressTo = this.registers.getAddress(this.fetch());
+                const value = this.memory.getUint16(memoryAddressFrom);
+                this.registers.setValueByAddress(registerAddressTo, value);
                 
                 return;
             }
         
             case INSTRUCTIONS.ADD_REG_REG: {
-                const firstRegisterAddress = (this.fetch() % this.registers._names.length) * 2;
-                const firstValue = this.registers._memory.getUint16(firstRegisterAddress);
+                const firstRegisterAddress = this.registers.getAddress(this.fetch());
+                const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
                 
-                const secondRegisterAddress = (this.fetch() % this.registers._names.length) * 2;
-                const secondValue = this.registers._memory.getUint16(secondRegisterAddress);
+                const secondRegisterAddress = this.registers.getAddress(this.fetch());
+                const secondValue = this.registers.getValueByAddress(secondRegisterAddress);
                 
                 this.registers.set(REGISTERS.ACC, firstValue + secondValue);
             
