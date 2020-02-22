@@ -10,17 +10,17 @@ class Cpu {
     }
         
     fetch() {
-        const address = this.registers.get(REGISTERS.IP);
+        const address = this.registers.getValueByName(REGISTERS.IP);
         const instruction = this.memory.getUint8(address);
-        this.registers.set(REGISTERS.IP, address + 1);
+        this.registers.setValueByName(REGISTERS.IP, address + 1);
         
         return instruction;
     }
     
     fetch16() {
-        const address = this.registers.get(REGISTERS.IP);
+        const address = this.registers.getValueByName(REGISTERS.IP);
         const instruction = this.memory.getUint16(address);
-        this.registers.set(REGISTERS.IP, address + 2);
+        this.registers.setValueByName(REGISTERS.IP, address + 2);
 
         return instruction;
     }
@@ -76,7 +76,7 @@ class Cpu {
                 const secondRegisterAddress = this.registers.getAddress(this.fetch());
                 const secondValue = this.registers.getValueByAddress(secondRegisterAddress);
                 
-                this.registers.set(REGISTERS.ACC, firstValue + secondValue);
+                this.registers.setValueByName(REGISTERS.ACC, firstValue + secondValue);
             
                 return;
             }
@@ -85,7 +85,7 @@ class Cpu {
         
     debug() {
         this.registers._names.forEach(name => {
-            console.log(`${name}: 0x${format.asWord(this.registers.get(name))}`);
+            console.log(`${name}: 0x${format.asWord(this.registers.getValueByName(name))}`);
         });
     }
     

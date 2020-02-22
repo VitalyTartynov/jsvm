@@ -13,19 +13,19 @@ class Registers {
         }, {}); 
     }
 
-    get(name) {
-        return this._memory.getUint16(this._map[name]);
-    }
-    
     getAddress(name) {
         return (name % this._names.length) * 2;
+    }
+
+    getValueByName(name) {
+        return this._memory.getUint16(this._map[name]);
     }
     
     getValueByAddress(address) {
         return this._memory.getUint16(address);
     }
 
-    set(name, newValue) {
+    setValueByName(name, newValue) {
         this._memory.setUint16(this._map[name], newValue);
     }
     
