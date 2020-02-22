@@ -1,6 +1,4 @@
-﻿const format = require('../core/format');
-
-const INSTRUCTIONS = require('../core/instruction.constant');
+﻿const INSTRUCTIONS = require('../core/instruction.constant');
 const REGISTERS = require('../core/register.constant');
 
 class Cpu {
@@ -9,24 +7,24 @@ class Cpu {
         this.registers = registers;
     }
         
-    fetch() {
-        const address = this.registers.get(REGISTERS.IP);
+    fetch8() {
+        const address = this.registers.getValueByName(REGISTERS.IP);
         const instruction = this.memory.getUint8(address);
-        this.registers.set(REGISTERS.IP, address + 1);
+        this.registers.setValueByName(REGISTERS.IP, address + 1);
         
         return instruction;
     }
     
     fetch16() {
-        const address = this.registers.get(REGISTERS.IP);
+        const address = this.registers.getValueByName(REGISTERS.IP);
         const instruction = this.memory.getUint16(address);
-        this.registers.set(REGISTERS.IP, address + 2);
+        this.registers.setValueByName(REGISTERS.IP, address + 2);
 
         return instruction;
     }
     
     tick() {
-        const instruction = this.fetch();
+        const instruction = this.fetch8();
         
         return this.execute(instruction);
     }
@@ -35,15 +33,15 @@ class Cpu {
         switch (instruction) {
             case INSTRUCTIONS.MOV_LIT_REG: {
                 const literal = this.fetch16();
-                const registerAddress = this.registers.getAddress(this.fetch());
+                const registerAddress = this.registers.getAddressByName(this.fetch8());
                 this.registers.setValueByAddress(registerAddress, literal);
             
                 return;
             }
         
             case INSTRUCTIONS.MOV_REG_REG: {
-                const registerAddressFrom = this.registers.getAddress(this.fetch());
-                const registerAddressTo = this.registers.getAddress(this.fetch());
+                const registerAddressFrom = this.registers.getAddressByName(this.fetch8());
+                const registerAddressTo = this.registers.getAddressByName(this.fetch8());
                 const value = this.registers.getValueByAddress(registerAddressFrom);
                 
                 this.registers.setValueByAddress(registerAddressTo, value);
@@ -52,7 +50,7 @@ class Cpu {
             }
         
             case INSTRUCTIONS.MOV_REG_MEM: {
-                const registerAddressFrom = this.registers.getAddress(this.fetch());
+                const registerAddressFrom = this.registers.getAddressByName(this.fetch8());
                 const memoryAddressTo = this.fetch16();
                 const value = this.registers.getValueByAddress(registerAddressFrom);
                 this.memory.setUint16(memoryAddressTo, value);
@@ -62,7 +60,7 @@ class Cpu {
             
             case INSTRUCTIONS.MOV_MEM_REG: {
                 const memoryAddressFrom = this.fetch16();
-                const registerAddressTo = this.registers.getAddress(this.fetch());
+                const registerAddressTo = this.registers.getAddressByName(this.fetch8());
                 const value = this.memory.getUint16(memoryAddressFrom);
                 this.registers.setValueByAddress(registerAddressTo, value);
                 
@@ -70,28 +68,17 @@ class Cpu {
             }
         
             case INSTRUCTIONS.ADD_REG_REG: {
-                const firstRegisterAddress = this.registers.getAddress(this.fetch());
+                const firstRegisterAddress = this.registers.getAddressByName(this.fetch8());
                 const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
                 
-                const secondRegisterAddress = this.registers.getAddress(this.fetch());
+                const secondRegisterAddress = this.registers.getAddressByName(this.fetch8());
                 const secondValue = this.registers.getValueByAddress(secondRegisterAddress);
                 
-                this.registers.set(REGISTERS.ACC, firstValue + secondValue);
+                this.registers.setValueByName(REGISTERS.ACC, firstValue + secondValue);
             
                 return;
             }
         }
-    }
-        
-    debug() {
-        this.registers._names.forEach(name => {
-            console.log(`${name}: 0x${format.asWord(this.registers.get(name))}`);
-        });
-    }
-    
-    debugMemoryAt(address) {
-        const nextBytes = Array.from({length: 8}, (_, i) => this.memory.getUint8(address + i)).map(value => format.asByte(value));
-        console.log(`${format.asWord(address)}: ${nextBytes.join(' ')}`);
     }
 }
 
