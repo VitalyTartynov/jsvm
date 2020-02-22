@@ -45,7 +45,7 @@ class Cpu {
             case INSTRUCTIONS.MOV_REG_REG: {
                 const registerFrom = (this.fetch() % this.registers._names.length) * 2;
                 const registerTo = (this.fetch() % this.registers._names.length) * 2;
-                const value = this.registers.getUint16(registerFrom);
+                const value = this.registers._memory.getUint16(registerFrom);
                 this.registers._memory.setUint16(registerTo, value);
             
                 return;
@@ -54,8 +54,8 @@ class Cpu {
             case INSTRUCTIONS.MOV_REG_MEM: {
                 const registerFrom = (this.fetch() % this.registers._names.length) * 2;
                 const address = this.fetch16();
-                const value = this.registers.getUint16(registerFrom);
-                this.memory._memory.setUint16(address, value);
+                const value = this.registers._memory.getUint16(registerFrom);
+                this.memory.setUint16(address, value);
                 
                 return;
             }
@@ -70,9 +70,13 @@ class Cpu {
             }
         
             case INSTRUCTIONS.ADD_REG_REG: {
-                const r1Value = this.registers.get(REGISTERS.R1);
-                const r2Value = this.registers.get(REGISTERS.R2);
-                this.registers.set(REGISTERS.ACC, r1Value + r2Value);
+                const firstRegisterAddress = (this.fetch() % this.registers._names.length) * 2;
+                const firstValue = this.registers._memory.getUint16(firstRegisterAddress);
+                
+                const secondRegisterAddress = (this.fetch() % this.registers._names.length) * 2;
+                const secondValue = this.registers._memory.getUint16(secondRegisterAddress);
+                
+                this.registers.set(REGISTERS.ACC, firstValue + secondValue);
             
                 return;
             }
