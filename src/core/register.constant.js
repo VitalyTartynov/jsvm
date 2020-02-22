@@ -13,13 +13,6 @@ registerMappings[R2] = 'r2';
 registerMappings[R3] = 'r3';
 registerMappings[R4] = 'r4';
 
-class Register {
-    constructor(humanName, address) {
-        this.humanName = humanName;
-        this.address = address;
-    }
-}
-
 module.exports = {
     IP,
     ACC,
