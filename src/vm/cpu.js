@@ -35,15 +35,15 @@ class Cpu {
         switch (instruction) {
             case INSTRUCTIONS.MOV_LIT_REG: {
                 const literal = this.fetch16();
-                const registerAddress = this.registers.getAddress(this.fetch());
+                const registerAddress = this.registers.getAddressByName(this.fetch());
                 this.registers.setValueByAddress(registerAddress, literal);
             
                 return;
             }
         
             case INSTRUCTIONS.MOV_REG_REG: {
-                const registerAddressFrom = this.registers.getAddress(this.fetch());
-                const registerAddressTo = this.registers.getAddress(this.fetch());
+                const registerAddressFrom = this.registers.getAddressByName(this.fetch());
+                const registerAddressTo = this.registers.getAddressByName(this.fetch());
                 const value = this.registers.getValueByAddress(registerAddressFrom);
                 
                 this.registers.setValueByAddress(registerAddressTo, value);
@@ -52,7 +52,7 @@ class Cpu {
             }
         
             case INSTRUCTIONS.MOV_REG_MEM: {
-                const registerAddressFrom = this.registers.getAddress(this.fetch());
+                const registerAddressFrom = this.registers.getAddressByName(this.fetch());
                 const memoryAddressTo = this.fetch16();
                 const value = this.registers.getValueByAddress(registerAddressFrom);
                 this.memory.setUint16(memoryAddressTo, value);
@@ -62,7 +62,7 @@ class Cpu {
             
             case INSTRUCTIONS.MOV_MEM_REG: {
                 const memoryAddressFrom = this.fetch16();
-                const registerAddressTo = this.registers.getAddress(this.fetch());
+                const registerAddressTo = this.registers.getAddressByName(this.fetch());
                 const value = this.memory.getUint16(memoryAddressFrom);
                 this.registers.setValueByAddress(registerAddressTo, value);
                 
@@ -70,10 +70,10 @@ class Cpu {
             }
         
             case INSTRUCTIONS.ADD_REG_REG: {
-                const firstRegisterAddress = this.registers.getAddress(this.fetch());
+                const firstRegisterAddress = this.registers.getAddressByName(this.fetch());
                 const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
                 
-                const secondRegisterAddress = this.registers.getAddress(this.fetch());
+                const secondRegisterAddress = this.registers.getAddressByName(this.fetch());
                 const secondValue = this.registers.getValueByAddress(secondRegisterAddress);
                 
                 this.registers.setValueByName(REGISTERS.ACC, firstValue + secondValue);
@@ -82,13 +82,7 @@ class Cpu {
             }
         }
     }
-        
-    debug() {
-        this.registers._names.forEach(name => {
-            console.log(`${name}: 0x${format.asWord(this.registers.getValueByName(name))}`);
-        });
-    }
-    
+       
     debugMemoryAt(address) {
         const nextBytes = Array.from({length: 8}, (_, i) => this.memory.getUint8(address + i)).map(value => format.asByte(value));
         console.log(`${format.asWord(address)}: ${nextBytes.join(' ')}`);

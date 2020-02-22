@@ -202,7 +202,16 @@ test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
 });
 
 test('cpu should have debug registers view', () => {
-    cpu.debug();
+    expect(cpu.registers.debug).toBeDefined();
+    
+    const result = cpu.registers.debug();
+    
+    expect(result).toBe('ip: 0x0x0000\n' +
+        'acc: 0x0x0000\n' +
+        'r1: 0x0x0000\n' +
+        'r2: 0x0x0000\n' +
+        'r3: 0x0x0000\n' +
+        'r4: 0x0x0000\n');    
 });
 
 test('cpu should have debug memory view', () => {

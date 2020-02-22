@@ -1,10 +1,11 @@
-﻿const createMemory = require('./memory');
+﻿const format = require('../core/format');
+const createMemory = require('./memory');
 
 const REGISTERS = require('../core/register.constant');
 
 class Registers {
     constructor() {
-        this._names = [REGISTERS.IP, REGISTERS.ACC, REGISTERS.R1, REGISTERS.R2];
+        this._names = [REGISTERS.IP, REGISTERS.ACC, REGISTERS.R1, REGISTERS.R2, REGISTERS.R3, REGISTERS.R4];
         this._memory = createMemory(this._names.length * 2);
 
         this._map = this._names.reduce((map, name, i) => {
@@ -13,7 +14,7 @@ class Registers {
         }, {}); 
     }
 
-    getAddress(name) {
+    getAddressByName(name) {
         return (name % this._names.length) * 2;
     }
 
@@ -31,6 +32,15 @@ class Registers {
     
     setValueByAddress(address, newValue) {
         this._memory.setUint16(address, newValue);
+    }
+
+    debug() {
+        let result = '';
+        this._names.forEach(name => {
+            result += `${REGISTERS.registerMappings[name]}: 0x${format.asWord(this.getValueByName(name))}\n`;
+        });
+        
+        return result;
     }
 }
 
