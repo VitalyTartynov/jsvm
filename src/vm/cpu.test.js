@@ -29,7 +29,7 @@ test('cpu should fetch 8 bit instruction from memory', () => {
     memory.setUint8(0, expectedValue);
 
     const instructionAddress = cpu.registers.getValueByName(REGISTERS.IP);
-    const actualValue = cpu.fetch();
+    const actualValue = cpu.fetch8();
     const instructionAddressAfterFetch = cpu.registers.getValueByName(REGISTERS.IP);
     
     expect(instructionAddress).toEqual(0);
