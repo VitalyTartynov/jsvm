@@ -1,4 +1,4 @@
-﻿const createMemory = require('./memory');
+﻿const Memory = require('./memory');
 const Cpu = require('./cpu');
 const Registers = require('./registers');
 const format = require('../core/format');
@@ -11,28 +11,13 @@ let registers;
 let cpu;
 
 beforeEach(() => {
-    memory = createMemory(64);
+    memory = new Memory(64);
     registers = new Registers();
     cpu = new Cpu(memory, registers);
 });
 
 test('cpu should be createable', () => {
     expect(cpu).toBeTruthy();
-});
-
-test('cpu should contain register names', () => {
-    const registerNames = cpu.registers._names;
-    
-    expect(registerNames).toBeTruthy();
-    expect(registerNames.length).toBeGreaterThan(0);
-});
-
-test('cpu should contain register values', () => {
-    const registersMemory = cpu.registers._memory;
-    const registersCount = cpu.registers._names.length;
-
-    expect(registersMemory).toBeTruthy();
-    expect(registersMemory.buffer.byteLength).toEqual(registersCount * 2);
 });
 
 test('cpu should contain memory', () => {
@@ -66,30 +51,30 @@ test('cpu should fetch 16 bit instruction from memory', () => {
 });
 
 test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
-    const writableMemory = new Uint8Array(memory.buffer);
-    writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    writableMemory[1] = 0xAB;
-    writableMemory[2] = 0xCD;
-    writableMemory[3] = REGISTERS.R1;
+    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.writableMemory[1] = 0xAB;
+    memory.writableMemory[2] = 0xCD;
+    memory.writableMemory[3] = REGISTERS.R1;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
     
     cpu.tick();
+    console.log(registers.debug());
+    console.log(memory.debugAt(0x0000));
     
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0004');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0xABCD');
 });
 
 test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
-    const writableMemory = new Uint8Array(memory.buffer);
-    writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    writableMemory[1] = 0xAB;
-    writableMemory[2] = 0xCD;
-    writableMemory[3] = REGISTERS.R1;
-    writableMemory[4] = INSTRUCTIONS.MOV_REG_REG;
-    writableMemory[5] = REGISTERS.R1;
-    writableMemory[6] = REGISTERS.R2;
+    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.writableMemory[1] = 0xAB;
+    memory.writableMemory[2] = 0xCD;
+    memory.writableMemory[3] = REGISTERS.R1;
+    memory.writableMemory[4] = INSTRUCTIONS.MOV_REG_REG;
+    memory.writableMemory[5] = REGISTERS.R1;
+    memory.writableMemory[6] = REGISTERS.R2;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -109,15 +94,14 @@ test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
 });
 
 test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
-    const writableMemory = new Uint8Array(memory.buffer);
-    writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    writableMemory[1] = 0xAB;
-    writableMemory[2] = 0xCD;
-    writableMemory[3] = REGISTERS.R1;
-    writableMemory[4] = INSTRUCTIONS.MOV_REG_MEM;
-    writableMemory[5] = REGISTERS.R1;
-    writableMemory[6] = 0x00;
-    writableMemory[7] = 0x10; // memory address
+    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.writableMemory[1] = 0xAB;
+    memory.writableMemory[2] = 0xCD;
+    memory.writableMemory[3] = REGISTERS.R1;
+    memory.writableMemory[4] = INSTRUCTIONS.MOV_REG_MEM;
+    memory.writableMemory[5] = REGISTERS.R1;
+    memory.writableMemory[6] = 0x00;
+    memory.writableMemory[7] = 0x10; // memory address
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -137,14 +121,12 @@ test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
 });
 
 test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
-    const writableMemory = new Uint8Array(memory.buffer);
-    writableMemory[0] = INSTRUCTIONS.MOV_MEM_REG;
-    writableMemory[1] = 0x00;
-    writableMemory[2] = 0x04;
-    writableMemory[3] = REGISTERS.R1;
-    
-    writableMemory[4] = 0x23;
-    writableMemory[5] = 0x45; // value to move
+    memory.writableMemory[0] = INSTRUCTIONS.MOV_MEM_REG;
+    memory.writableMemory[1] = 0x00;
+    memory.writableMemory[2] = 0x04;
+    memory.writableMemory[3] = REGISTERS.R1;
+    memory.writableMemory[4] = 0x23;
+    memory.writableMemory[5] = 0x45; // value to move
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -159,20 +141,19 @@ test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
 });
 
 test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
-    const writableMemory = new Uint8Array(memory.buffer);
-    writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    writableMemory[1] = 0x02;
-    writableMemory[2] = 0x04;
-    writableMemory[3] = REGISTERS.R1;
-    
-    writableMemory[4] = INSTRUCTIONS.MOV_LIT_REG;
-    writableMemory[5] = 0x03;
-    writableMemory[6] = 0x06;
-    writableMemory[7] = REGISTERS.R2;
+    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.writableMemory[1] = 0x02;
+    memory.writableMemory[2] = 0x04;
+    memory.writableMemory[3] = REGISTERS.R1;
 
-    writableMemory[8] = INSTRUCTIONS.ADD_REG_REG;
-    writableMemory[9] = REGISTERS.R1;
-    writableMemory[10] = REGISTERS.R2;
+    memory.writableMemory[4] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.writableMemory[5] = 0x03;
+    memory.writableMemory[6] = 0x06;
+    memory.writableMemory[7] = REGISTERS.R2;
+
+    memory.writableMemory[8] = INSTRUCTIONS.ADD_REG_REG;
+    memory.writableMemory[9] = REGISTERS.R1;
+    memory.writableMemory[10] = REGISTERS.R2;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -199,22 +180,4 @@ test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0204');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R2))).toEqual('0x0306');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x050A');
-});
-
-test('cpu should have debug registers view', () => {
-    expect(cpu.registers.debug).toBeDefined();
-    
-    const result = cpu.registers.debug();
-    
-    expect(result).toBe('ip: 0x0x0000\n' +
-        'acc: 0x0x0000\n' +
-        'r1: 0x0x0000\n' +
-        'r2: 0x0x0000\n' +
-        'r3: 0x0x0000\n' +
-        'r4: 0x0x0000\n');    
-});
-
-test('cpu should have debug memory view', () => {
-    cpu.debugMemoryAt(0);
-    cpu.debugMemoryAt(8);
 });

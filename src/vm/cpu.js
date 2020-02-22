@@ -1,6 +1,4 @@
-﻿const format = require('../core/format');
-
-const INSTRUCTIONS = require('../core/instruction.constant');
+﻿const INSTRUCTIONS = require('../core/instruction.constant');
 const REGISTERS = require('../core/register.constant');
 
 class Cpu {
@@ -81,11 +79,6 @@ class Cpu {
                 return;
             }
         }
-    }
-       
-    debugMemoryAt(address) {
-        const nextBytes = Array.from({length: 8}, (_, i) => this.memory.getUint8(address + i)).map(value => format.asByte(value));
-        console.log(`${format.asWord(address)}: ${nextBytes.join(' ')}`);
     }
 }
 
