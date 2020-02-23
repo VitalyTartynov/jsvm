@@ -85,3 +85,35 @@ test('formatter should throw error for format negative value as dword', () => {
 
     expect(formatNegativeWord).toThrowError();
 });
+
+test('formatter should format qword', () => {
+    const values = [
+        { value: 0,                       result: '0x0000000000000000'},
+        { value: 1,                       result: '0x0000000000000001'},
+        { value: 12,                      result: '0x000000000000000C'},
+        { value: 15,                      result: '0x000000000000000F'},
+        { value: 128,                     result: '0x0000000000000080'},
+        { value: 170,                     result: '0x00000000000000AA'},
+        { value: 255,                     result: '0x00000000000000FF'},
+        { value: 65535,                   result: '0x000000000000FFFF'},
+        { value: 65536,                   result: '0x0000000000010000'},
+        { value: 65537,                   result: '0x0000000000010001'},
+        { value: 4294967295,              result: '0x00000000FFFFFFFF'},
+        { value: 4294967296,              result: '0x0000000100000000'},
+        { value: 4294967297,              result: '0x0000000100000001'},
+        { value: Number.MAX_SAFE_INTEGER, result: '0x001FFFFFFFFFFFFF'},        
+    ];
+
+    values.forEach(item => {
+        expect(format.asQword(item.value)).toEqual(item.result);
+    });
+});
+
+test('formatter should throw error for format negative value as qword', () => {
+    // eslint-disable-next-line require-jsdoc
+    function formatNegativeWord() {
+        format.asQword(-1);
+    }
+
+    expect(formatNegativeWord).toThrowError();
+});
