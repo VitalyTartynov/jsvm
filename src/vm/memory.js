@@ -1,7 +1,6 @@
 const format = require('../core/format');
 
-class Memory {
-    
+class Memory {    
     constructor(sizeInBytes) {
         const array = new ArrayBuffer(sizeInBytes);
         this._memory = new DataView(array);
@@ -28,6 +27,7 @@ class Memory {
 
     debugAt(address) {
         const nextBytes = Array.from({length: 8}, (_, i) => this._memory.getUint8(address + i)).map(value => format.asByte(value));
+        
         return `${format.asWord(address)}: ${nextBytes.join(' ')}`;
     }
 }
