@@ -5,6 +5,10 @@ class Cpu {
     constructor(memory, registers) {
         this.memory = memory;
         this.registers = registers;
+
+        // VM 16 bit, we should have ability to PUSH 2 bytes to stack
+        this.stackPointerInitial = this.memory.length - 2;
+        this.registers.setValueByName(REGISTERS.SP, this.stackPointerInitial);
     }
         
     fetch8() {
@@ -21,6 +25,19 @@ class Cpu {
         this.registers.setValueByName(REGISTERS.IP, address + 2);
 
         return instruction;
+    }
+    
+    push(value) {
+        const stackAddress = this.registers.getValueByName(REGISTERS.SP);
+        this.memory.setUint16(stackAddress, value);
+        this.registers.setValueByName(REGISTERS.SP, stackAddress - 2);        
+    }
+    
+    pop() {
+        const nextStackAddress = this.registers.getValueByName(REGISTERS.SP) + 2;
+        this.registers.setValueByName(REGISTERS.SP, nextStackAddress);
+        
+        return this.memory.getUint16(nextStackAddress);
     }
     
     tick() {
@@ -95,6 +112,28 @@ class Cpu {
                 if (value !== this.registers.getValueByName(REGISTERS.ACC)) {
                     this.registers.setValueByName(REGISTERS.IP, address);
                 }
+                
+                return;
+            }
+            
+            case INSTRUCTIONS.PSH_LIT: {
+                const value = this.fetch16();
+                this.push(value);
+                
+                return;                
+            }
+            
+            case INSTRUCTIONS.PSH_REG: {
+                const registerAddress = this.registers.getAddressByName(this.fetch8());
+                this.push(this.registers.getValueByAddress(registerAddress));
+                
+                return;
+            }
+            
+            case INSTRUCTIONS.POP: {
+                const registerAddress = this.registers.getAddressByName(this.fetch8());
+                const value = this.pop();
+                this.registers.setValueByAddress(registerAddress, value);
                 
                 return;
             }
