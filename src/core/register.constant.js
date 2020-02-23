@@ -1,19 +1,12 @@
-﻿const IP  = 0x00;
-const ACC = 0x01;
-const SP  = 0x02;
-const R1  = 0x03;
-const R2  = 0x04;
-const R3  = 0x05;
-const R4  = 0x06;
+﻿const Register = require('./register');
 
-const registerMappings = {};
-registerMappings[IP]  = 'ip';
-registerMappings[ACC] = 'acc';
-registerMappings[SP]  = 'sp';
-registerMappings[R1]  = 'r1';
-registerMappings[R2]  = 'r2';
-registerMappings[R3]  = 'r3';
-registerMappings[R4]  = 'r4';
+const IP  = new Register('IP',  0x00, 'Instruction Pointer');
+const ACC = new Register('ACC', 0x02, 'Accumulator');
+const SP  = new Register('SP',  0x04, 'Stack Pointer');
+const R1  = new Register('R1',  0x06, 'General Purpose register 1');
+const R2  = new Register('R2',  0x08, 'General Purpose register 2');
+const R3  = new Register('R3',  0x0A, 'General Purpose register 3');
+const R4  = new Register('R4',  0x0C, 'General Purpose register 4');
 
 module.exports = {
     IP,
@@ -23,5 +16,4 @@ module.exports = {
     R2,
     R3,
     R4,
-    registerMappings
 };
