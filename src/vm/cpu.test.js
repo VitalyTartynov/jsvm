@@ -51,10 +51,10 @@ test('cpu should fetch 16 bit instruction from memory', () => {
 });
 
 test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
-    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    memory.writableMemory[1] = 0xAB;
-    memory.writableMemory[2] = 0xCD;
-    memory.writableMemory[3] = REGISTERS.R1;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[1] = 0xAB;
+    memory.byteAt[2] = 0xCD;
+    memory.byteAt[3] = REGISTERS.R1;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -68,13 +68,13 @@ test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
 });
 
 test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
-    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    memory.writableMemory[1] = 0xAB;
-    memory.writableMemory[2] = 0xCD;
-    memory.writableMemory[3] = REGISTERS.R1;
-    memory.writableMemory[4] = INSTRUCTIONS.MOV_REG_REG;
-    memory.writableMemory[5] = REGISTERS.R1;
-    memory.writableMemory[6] = REGISTERS.R2;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[1] = 0xAB;
+    memory.byteAt[2] = 0xCD;
+    memory.byteAt[3] = REGISTERS.R1;
+    memory.byteAt[4] = INSTRUCTIONS.MOV_REG_REG;
+    memory.byteAt[5] = REGISTERS.R1;
+    memory.byteAt[6] = REGISTERS.R2;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -94,14 +94,14 @@ test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
 });
 
 test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
-    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    memory.writableMemory[1] = 0xAB;
-    memory.writableMemory[2] = 0xCD;
-    memory.writableMemory[3] = REGISTERS.R1;
-    memory.writableMemory[4] = INSTRUCTIONS.MOV_REG_MEM;
-    memory.writableMemory[5] = REGISTERS.R1;
-    memory.writableMemory[6] = 0x00;
-    memory.writableMemory[7] = 0x10; // memory address
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[1] = 0xAB;
+    memory.byteAt[2] = 0xCD;
+    memory.byteAt[3] = REGISTERS.R1;
+    memory.byteAt[4] = INSTRUCTIONS.MOV_REG_MEM;
+    memory.byteAt[5] = REGISTERS.R1;
+    memory.byteAt[6] = 0x00;
+    memory.byteAt[7] = 0x10; // memory address
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -121,12 +121,12 @@ test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
 });
 
 test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
-    memory.writableMemory[0] = INSTRUCTIONS.MOV_MEM_REG;
-    memory.writableMemory[1] = 0x00;
-    memory.writableMemory[2] = 0x04;
-    memory.writableMemory[3] = REGISTERS.R1;
-    memory.writableMemory[4] = 0x23;
-    memory.writableMemory[5] = 0x45; // value to move
+    memory.byteAt[0] = INSTRUCTIONS.MOV_MEM_REG;
+    memory.byteAt[1] = 0x00;
+    memory.byteAt[2] = 0x04;
+    memory.byteAt[3] = REGISTERS.R1;
+    memory.byteAt[4] = 0x23;
+    memory.byteAt[5] = 0x45; // value to move
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');
@@ -141,19 +141,19 @@ test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
 });
 
 test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
-    memory.writableMemory[0] = INSTRUCTIONS.MOV_LIT_REG;
-    memory.writableMemory[1] = 0x02;
-    memory.writableMemory[2] = 0x04;
-    memory.writableMemory[3] = REGISTERS.R1;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[1] = 0x02;
+    memory.byteAt[2] = 0x04;
+    memory.byteAt[3] = REGISTERS.R1;
 
-    memory.writableMemory[4] = INSTRUCTIONS.MOV_LIT_REG;
-    memory.writableMemory[5] = 0x03;
-    memory.writableMemory[6] = 0x06;
-    memory.writableMemory[7] = REGISTERS.R2;
+    memory.byteAt[4] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[5] = 0x03;
+    memory.byteAt[6] = 0x06;
+    memory.byteAt[7] = REGISTERS.R2;
 
-    memory.writableMemory[8] = INSTRUCTIONS.ADD_REG_REG;
-    memory.writableMemory[9] = REGISTERS.R1;
-    memory.writableMemory[10] = REGISTERS.R2;
+    memory.byteAt[8] = INSTRUCTIONS.ADD_REG_REG;
+    memory.byteAt[9] = REGISTERS.R1;
+    memory.byteAt[10] = REGISTERS.R2;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R1))).toEqual('0x0000');

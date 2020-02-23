@@ -7,7 +7,7 @@ class Memory {
         this._memory = new DataView(array);
         
         this.length = this._memory.buffer.byteLength;
-        this.writableMemory = new Uint8Array(this._memory.buffer);
+        this.byteAt = new Uint8Array(this._memory.buffer);
     }
 
     getUint8(address) {
