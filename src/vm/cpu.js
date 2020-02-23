@@ -96,6 +96,18 @@ class Cpu {
                 return;
             }
             
+            case INSTRUCTIONS.SUB_REG_REG: {
+                const firstRegisterAddress = this.registers.getAddressByName(this.fetch8());
+                const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
+
+                const secondRegisterAddress = this.registers.getAddressByName(this.fetch8());
+                const secondValue = this.registers.getValueByAddress(secondRegisterAddress);
+
+                this.registers.setValueByName(REGISTERS.ACC, firstValue - secondValue);
+
+                return;
+            }
+            
             case INSTRUCTIONS.JMP_EQ: {
                 const value = this.fetch16();
                 const address = this.fetch16();
