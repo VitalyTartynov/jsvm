@@ -5,6 +5,9 @@ const MOV_MEM_REG = 0x13;
 const ADD_REG_REG = 0x14;
 const JMP_EQ      = 0x15;
 const JMP_NOT_EQ  = 0x16;
+const PSH_LIT     = 0x17;
+const PSH_REG     = 0x18;
+const POP         = 0x19;
 
 module.exports = {
     MOV_LIT_REG,
@@ -13,5 +16,8 @@ module.exports = {
     MOV_MEM_REG,
     ADD_REG_REG,
     JMP_EQ,
-    JMP_NOT_EQ
+    JMP_NOT_EQ,
+    PSH_LIT,
+    PSH_REG,
+    POP
 };

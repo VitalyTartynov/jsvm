@@ -5,7 +5,7 @@ const REGISTERS = require('../core/register.constant');
 
 class Registers {
     constructor() {
-        this._names = [REGISTERS.IP, REGISTERS.ACC, REGISTERS.R1, REGISTERS.R2, REGISTERS.R3, REGISTERS.R4];
+        this._names = [REGISTERS.IP, REGISTERS.ACC, REGISTERS.SP, REGISTERS.R1, REGISTERS.R2, REGISTERS.R3, REGISTERS.R4];
         this._memory = new Memory(this._names.length * 2);
 
         this._map = this._names.reduce((map, name, i) => {
