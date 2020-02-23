@@ -1,6 +1,6 @@
 ﻿const Memory = require('./memory');
 
-test('Memory should be createable', () => {
+test('memory should be createable', () => {
     const expectedSize = 16;
     const memory = new Memory(expectedSize);
     
@@ -8,7 +8,7 @@ test('Memory should be createable', () => {
     expect(memory.length).toBe(expectedSize);
 });
 
-test('Memory should have debug memory view', () => {
+test('memory should have debug memory view', () => {
     const expectedSize = 16;
     const memory = new Memory(expectedSize);
 

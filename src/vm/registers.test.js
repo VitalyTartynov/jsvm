@@ -6,6 +6,10 @@ beforeEach(() => {
     registers = new Registers();
 });
 
+test('registers should be createable', () => {
+    expect(registers).toBeTruthy();
+});
+
 test('registers should contain register names', () => {
     const registerNames = registers._names;
 

@@ -1,6 +1,7 @@
 ﻿const Memory = require('./memory');
 const Cpu = require('./cpu');
 const Registers = require('./registers');
+
 const format = require('../core/format');
 
 const INSTRUCTIONS = require('../core/instruction.constant');
@@ -20,8 +21,9 @@ test('cpu should be createable', () => {
     expect(cpu).toBeTruthy();
 });
 
-test('cpu should contain memory', () => {
-    expect(memory).toBeTruthy();
+test('cpu should contain memory and registers', () => {
+    expect(cpu.memory).toBeTruthy();
+    expect(cpu.registers).toBeTruthy();
 });
 
 test('cpu should fetch 8 bit instruction from memory', () => {
