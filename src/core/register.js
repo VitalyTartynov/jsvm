@@ -1,7 +1,8 @@
 ﻿class Register {
-    constructor(name, address) {
+    constructor(name, address, description) {
         this.name = name;
         this.address = address;
+        this.description = description;
     }
 }
 
