@@ -34,26 +34,18 @@ test('cpu should fetch 8 bit instruction from memory', () => {
     const expectedValue = 234;
     memory.setUint8(0, expectedValue);
 
-    const instructionAddress = cpu.registers.get(REGISTER.IP.address);
-    const actualValue = cpu.fetch8();
-    const instructionAddressAfterFetch = cpu.registers.get(REGISTER.IP.address);
-    
-    expect(instructionAddress).toEqual(0);
-    expect(actualValue).toEqual(expectedValue);
-    expect(instructionAddressAfterFetch).toEqual(1);
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
+    expect(cpu.fetch8()).toEqual(expectedValue);
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0001);
 });
 
 test('cpu should fetch 16 bit instruction from memory', () => {
     const expectedValue = 65432;
     memory.setUint16(0, expectedValue);
 
-    const instructionAddress = cpu.registers.get(REGISTER.IP.address);
-    const actualValue = cpu.fetch16();
-    const instructionAddressAfterFetch = cpu.registers.get(REGISTER.IP.address);
-
-    expect(instructionAddress).toEqual(0);
-    expect(actualValue).toEqual(expectedValue);
-    expect(instructionAddressAfterFetch).toEqual(2);
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
+    expect(cpu.fetch16()).toEqual(expectedValue);
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0002);
 });
 
 test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
