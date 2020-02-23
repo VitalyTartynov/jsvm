@@ -26,6 +26,15 @@ function asDword(value) {
 }
 
 /**
+ * Format qword value in HEX
+ * @param value Value in DEC
+ * @returns {string} Result HEX value as string
+ */
+function asQword(value) {
+    return _format(value, 16);
+}
+
+/**
  * Format value to HEX with base
  * @param value Value in DEC
  * @param base 2 for byte, 4 for word, 8 for dword
@@ -51,5 +60,6 @@ function _format(value, base) {
 module.exports = {
     asByte,
     asWord,
-    asDword
+    asDword,
+    asQword
 };
