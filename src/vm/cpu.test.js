@@ -59,7 +59,7 @@ test('cpu should fetch 16 bit instruction from memory', () => {
 });
 
 test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0xAB;
     memory.byteAt[2] = 0xCD;
     memory.byteAt[3] = REGISTERS.R1;
@@ -74,12 +74,12 @@ test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
 });
 
 test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0xAB;
     memory.byteAt[2] = 0xCD;
     memory.byteAt[3] = REGISTERS.R1;
     
-    memory.byteAt[4] = INSTRUCTIONS.MOV_REG_REG;
+    memory.byteAt[4] = INSTRUCTIONS.MOV_REG_REG.opcode;
     memory.byteAt[5] = REGISTERS.R1;
     memory.byteAt[6] = REGISTERS.R2;
 
@@ -101,12 +101,12 @@ test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
 });
 
 test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0xAB;
     memory.byteAt[2] = 0xCD;
     memory.byteAt[3] = REGISTERS.R1;
     
-    memory.byteAt[4] = INSTRUCTIONS.MOV_REG_MEM;
+    memory.byteAt[4] = INSTRUCTIONS.MOV_REG_MEM.opcode;
     memory.byteAt[5] = REGISTERS.R1;
     memory.byteAt[6] = 0x00;
     memory.byteAt[7] = 0x10; // memory address
@@ -129,7 +129,7 @@ test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
 });
 
 test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_MEM_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_MEM_REG.opcode;
     memory.byteAt[1] = 0x00;
     memory.byteAt[2] = 0x04;
     memory.byteAt[3] = REGISTERS.R1;
@@ -149,17 +149,17 @@ test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
 });
 
 test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0x02;
     memory.byteAt[2] = 0x04;
     memory.byteAt[3] = REGISTERS.R1;
 
-    memory.byteAt[4] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[4] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[5] = 0x03;
     memory.byteAt[6] = 0x06;
     memory.byteAt[7] = REGISTERS.R2;
 
-    memory.byteAt[8] = INSTRUCTIONS.ADD_REG_REG;
+    memory.byteAt[8] = INSTRUCTIONS.ADD_REG_REG.opcode;
     memory.byteAt[9] = REGISTERS.R1;
     memory.byteAt[10] = REGISTERS.R2;
 
@@ -191,17 +191,17 @@ test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
 });
 
 test('cpu should execute instruction SUBTRACT REGISTER TO REGISTER', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0x03;
     memory.byteAt[2] = 0x06;
     memory.byteAt[3] = REGISTERS.R1;
 
-    memory.byteAt[4] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[4] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[5] = 0x01;
     memory.byteAt[6] = 0x02;
     memory.byteAt[7] = REGISTERS.R2;
 
-    memory.byteAt[8] = INSTRUCTIONS.SUB_REG_REG;
+    memory.byteAt[8] = INSTRUCTIONS.SUB_REG_REG.opcode;
     memory.byteAt[9] = REGISTERS.R1;
     memory.byteAt[10] = REGISTERS.R2;
 
@@ -233,12 +233,12 @@ test('cpu should execute instruction SUBTRACT REGISTER TO REGISTER', () => {
 });
 
 test('cpu should execute instruction JUMP EQUAL', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0x12; 
     memory.byteAt[2] = 0x34;
     memory.byteAt[3] = REGISTERS.ACC;
     
-    memory.byteAt[4] = INSTRUCTIONS.JMP_EQ;
+    memory.byteAt[4] = INSTRUCTIONS.JMP_EQ.opcode;
     memory.byteAt[5] = 0x12; 
     memory.byteAt[6] = 0x34; // value for check
     memory.byteAt[7] = 0x00;
@@ -259,12 +259,12 @@ test('cpu should execute instruction JUMP EQUAL', () => {
 });
 
 test('cpu should execute instruction JUMP NOT EQUAL', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0x12;
     memory.byteAt[2] = 0x34;
     memory.byteAt[3] = REGISTERS.ACC;
 
-    memory.byteAt[4] = INSTRUCTIONS.JMP_NOT_EQ;
+    memory.byteAt[4] = INSTRUCTIONS.JMP_NOT_EQ.opcode;
     memory.byteAt[5] = 0x43;
     memory.byteAt[6] = 0x21; // value for check
     memory.byteAt[7] = 0x00;
@@ -285,7 +285,7 @@ test('cpu should execute instruction JUMP NOT EQUAL', () => {
 });
 
 test('cpu should execute instruction PUSH LITERAL TO STACK', () => {
-    memory.byteAt[0] = INSTRUCTIONS.PSH_LIT;
+    memory.byteAt[0] = INSTRUCTIONS.PSH_LIT.opcode;
     memory.byteAt[1] = 0x12;
     memory.byteAt[2] = 0x34;
 
@@ -301,12 +301,12 @@ test('cpu should execute instruction PUSH LITERAL TO STACK', () => {
 });
 
 test('cpu should execute instruction PUSH REGISTER TO STACK', () => {
-    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0x12;
     memory.byteAt[2] = 0x34;
     memory.byteAt[3] = REGISTERS.R1;
     
-    memory.byteAt[4] = INSTRUCTIONS.PSH_REG;
+    memory.byteAt[4] = INSTRUCTIONS.PSH_REG.opcode;
     memory.byteAt[5] = REGISTERS.R1;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
@@ -330,11 +330,11 @@ test('cpu should execute instruction PUSH REGISTER TO STACK', () => {
 });
 
 test('cpu should execute instruction POP FROM STACK', () => {
-    memory.byteAt[0] = INSTRUCTIONS.PSH_LIT;
+    memory.byteAt[0] = INSTRUCTIONS.PSH_LIT.opcode;
     memory.byteAt[1] = 0x12;
     memory.byteAt[2] = 0x34;
     
-    memory.byteAt[3] = INSTRUCTIONS.POP;
+    memory.byteAt[3] = INSTRUCTIONS.POP.opcode;
     memory.byteAt[4] = REGISTERS.R1;
 
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');

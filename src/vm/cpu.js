@@ -48,7 +48,7 @@ class Cpu {
     
     execute(instruction) {
         switch (instruction) {
-            case INSTRUCTIONS.MOV_LIT_REG: {
+            case INSTRUCTIONS.MOV_LIT_REG.opcode: {
                 const literal = this.fetch16();
                 const registerAddress = this.registers.getAddressByName(this.fetch8());
                 this.registers.setValueByAddress(registerAddress, literal);
@@ -56,7 +56,7 @@ class Cpu {
                 return;
             }
         
-            case INSTRUCTIONS.MOV_REG_REG: {
+            case INSTRUCTIONS.MOV_REG_REG.opcode: {
                 const registerAddressFrom = this.registers.getAddressByName(this.fetch8());
                 const registerAddressTo = this.registers.getAddressByName(this.fetch8());
                 const value = this.registers.getValueByAddress(registerAddressFrom);
@@ -66,7 +66,7 @@ class Cpu {
                 return;
             }
         
-            case INSTRUCTIONS.MOV_REG_MEM: {
+            case INSTRUCTIONS.MOV_REG_MEM.opcode: {
                 const registerAddressFrom = this.registers.getAddressByName(this.fetch8());
                 const memoryAddressTo = this.fetch16();
                 const value = this.registers.getValueByAddress(registerAddressFrom);
@@ -75,7 +75,7 @@ class Cpu {
                 return;
             }
             
-            case INSTRUCTIONS.MOV_MEM_REG: {
+            case INSTRUCTIONS.MOV_MEM_REG.opcode: {
                 const memoryAddressFrom = this.fetch16();
                 const registerAddressTo = this.registers.getAddressByName(this.fetch8());
                 const value = this.memory.getUint16(memoryAddressFrom);
@@ -84,7 +84,7 @@ class Cpu {
                 return;
             }
         
-            case INSTRUCTIONS.ADD_REG_REG: {
+            case INSTRUCTIONS.ADD_REG_REG.opcode: {
                 const firstRegisterAddress = this.registers.getAddressByName(this.fetch8());
                 const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
                 
@@ -96,7 +96,7 @@ class Cpu {
                 return;
             }
             
-            case INSTRUCTIONS.SUB_REG_REG: {
+            case INSTRUCTIONS.SUB_REG_REG.opcode: {
                 const firstRegisterAddress = this.registers.getAddressByName(this.fetch8());
                 const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
 
@@ -108,7 +108,7 @@ class Cpu {
                 return;
             }
             
-            case INSTRUCTIONS.JMP_EQ: {
+            case INSTRUCTIONS.JMP_EQ.opcode: {
                 const value = this.fetch16();
                 const address = this.fetch16();
                 if (value === this.registers.getValueByName(REGISTERS.ACC)) {
@@ -118,7 +118,7 @@ class Cpu {
                 return;
             }
             
-            case INSTRUCTIONS.JMP_NOT_EQ: {
+            case INSTRUCTIONS.JMP_NOT_EQ.opcode: {
                 const value = this.fetch16();
                 const address = this.fetch16();
                 if (value !== this.registers.getValueByName(REGISTERS.ACC)) {
@@ -128,27 +128,27 @@ class Cpu {
                 return;
             }
             
-            case INSTRUCTIONS.PSH_LIT: {
+            case INSTRUCTIONS.PSH_LIT.opcode: {
                 const value = this.fetch16();
                 this.push(value);
                 
                 return;                
             }
             
-            case INSTRUCTIONS.PSH_REG: {
+            case INSTRUCTIONS.PSH_REG.opcode: {
                 const registerAddress = this.registers.getAddressByName(this.fetch8());
                 this.push(this.registers.getValueByAddress(registerAddress));
                 
                 return;
             }
             
-            case INSTRUCTIONS.POP: {
+            case INSTRUCTIONS.POP.opcode: {
                 const registerAddress = this.registers.getAddressByName(this.fetch8());
                 const value = this.pop();
                 this.registers.setValueByAddress(registerAddress, value);
                 
                 return;
-            }
+            }            
         }
     }
 }
