@@ -31,7 +31,7 @@ test('registers should have debug registers view', () => {
     const result = registers.debug();
 
     expect(result).toBe('IP: 0x0x0000\n' +
-        'ACC: 0x0x0000\n' +
+        'AC: 0x0x0000\n' +
         'SP: 0x0x0000\n' +
         'R1: 0x0x0000\n' +
         'R2: 0x0x0000\n' +

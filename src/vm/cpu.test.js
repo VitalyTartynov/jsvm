@@ -156,28 +156,28 @@ test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0000);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
 
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0004);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0204);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0000);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
     
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0008);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0204);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0306);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
     
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x000B);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0204);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0306);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x050A);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x050A);
 });
 
 test('cpu should execute instruction SUBTRACT REGISTER TO REGISTER', () => {
@@ -198,35 +198,35 @@ test('cpu should execute instruction SUBTRACT REGISTER TO REGISTER', () => {
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0000);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
 
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0004);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0306);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0000);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
 
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0008);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0306);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0102);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
 
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x000B);
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x0306);
     expect(cpu.registers.get(REGISTER.R2.address)).toEqual(0x0102);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0204);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0204);
 });
 
 test('cpu should execute instruction JUMP EQUAL', () => {
     memory.byteAt[0] = INSTRUCTION.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0x12; 
     memory.byteAt[2] = 0x34;
-    memory.byteAt[3] = REGISTER.ACC.address;
+    memory.byteAt[3] = REGISTER.AC.address;
     
     memory.byteAt[4] = INSTRUCTION.JMP_EQ.opcode;
     memory.byteAt[5] = 0x12; 
@@ -235,24 +235,24 @@ test('cpu should execute instruction JUMP EQUAL', () => {
     memory.byteAt[8] = 0x1F; // address for jump
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
     
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0004);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x1234);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x1234);
     
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x001F);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x1234);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x1234);
 });
 
 test('cpu should execute instruction JUMP NOT EQUAL', () => {
     memory.byteAt[0] = INSTRUCTION.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0x12;
     memory.byteAt[2] = 0x34;
-    memory.byteAt[3] = REGISTER.ACC.address;
+    memory.byteAt[3] = REGISTER.AC.address;
 
     memory.byteAt[4] = INSTRUCTION.JMP_NOT_EQ.opcode;
     memory.byteAt[5] = 0x43;
@@ -261,17 +261,17 @@ test('cpu should execute instruction JUMP NOT EQUAL', () => {
     memory.byteAt[8] = 0x1F; // address for jump
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x0000);
 
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0004);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x1234);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x1234);
 
     cpu.tick();
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x001F);
-    expect(cpu.registers.get(REGISTER.ACC.address)).toEqual(0x1234);
+    expect(cpu.registers.get(REGISTER.AC.address)).toEqual(0x1234);
 });
 
 test('cpu should execute instruction PUSH LITERAL TO STACK', () => {

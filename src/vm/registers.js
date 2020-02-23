@@ -7,7 +7,7 @@ class Registers {
     constructor() {
         this._registers = [
             REGISTER.IP, 
-            REGISTER.ACC,
+            REGISTER.AC,
             REGISTER.SP, 
             REGISTER.R1, 
             REGISTER.R2, 

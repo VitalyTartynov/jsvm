@@ -91,7 +91,7 @@ class Cpu {
                 const secondRegisterAddress = this.fetch8();
                 const secondValue = this.registers.get(secondRegisterAddress);
                 
-                this.registers.set(REGISTER.ACC.address, firstValue + secondValue);
+                this.registers.set(REGISTER.AC.address, firstValue + secondValue);
             
                 return;
             }
@@ -103,7 +103,7 @@ class Cpu {
                 const secondRegisterAddress = this.fetch8();
                 const secondValue = this.registers.get(secondRegisterAddress);
 
-                this.registers.set(REGISTER.ACC.address, firstValue - secondValue);
+                this.registers.set(REGISTER.AC.address, firstValue - secondValue);
 
                 return;
             }
@@ -111,7 +111,7 @@ class Cpu {
             case INSTRUCTION.JMP_EQ.opcode: {
                 const value = this.fetch16();
                 const address = this.fetch16();
-                if (value === this.registers.get(REGISTER.ACC.address)) {
+                if (value === this.registers.get(REGISTER.AC.address)) {
                     this.registers.set(REGISTER.IP.address, address);
                 }
                 
@@ -121,7 +121,7 @@ class Cpu {
             case INSTRUCTION.JMP_NOT_EQ.opcode: {
                 const value = this.fetch16();
                 const address = this.fetch16();
-                if (value !== this.registers.get(REGISTER.ACC.address)) {
+                if (value !== this.registers.get(REGISTER.AC.address)) {
                     this.registers.set(REGISTER.IP.address, address);
                 }
                 
