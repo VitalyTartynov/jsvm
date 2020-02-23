@@ -1,18 +1,18 @@
 ﻿const format = require('../core/format');
 const Memory = require('./memory');
 
-const REGISTERS = require('../core/register.constant');
+const REGISTER = require('../core/register.constant');
 
 class Registers {
     constructor() {
         this._registers = [
-            REGISTERS.IP, 
-            REGISTERS.ACC,
-            REGISTERS.SP, 
-            REGISTERS.R1, 
-            REGISTERS.R2, 
-            REGISTERS.R3, 
-            REGISTERS.R4];
+            REGISTER.IP, 
+            REGISTER.ACC,
+            REGISTER.SP, 
+            REGISTER.R1, 
+            REGISTER.R2, 
+            REGISTER.R3, 
+            REGISTER.R4];
         this._memory = new Memory(this._registers.length * 2);
     }
     
