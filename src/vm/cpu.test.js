@@ -2,8 +2,6 @@
 const Cpu = require('./cpu');
 const Registers = require('./registers');
 
-const format = require('../core/format');
-
 const INSTRUCTIONS = require('../core/instruction.constant');
 const REGISTERS = require('../core/register.constant');
 
@@ -64,13 +62,13 @@ test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
     memory.byteAt[2] = 0xCD;
     memory.byteAt[3] = REGISTERS.R1.address;
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
     
     cpu.tick();
     
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0xABCD');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0xABCD);
 });
 
 test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
@@ -83,21 +81,21 @@ test('cpu should execute instruction MOVE REGISTER TO REGISTER', () => {
     memory.byteAt[5] = REGISTERS.R1.address;
     memory.byteAt[6] = REGISTERS.R2.address;
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0000);
     
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0xABCD');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0xABCD);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0000);
 
     cpu.tick();
     
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0007');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0xABCD');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0xABCD');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0007);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0xABCD);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0xABCD);
 });
 
 test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
@@ -111,21 +109,21 @@ test('cpu should execute instruction MOVE REGISTER TO MEMORY', () => {
     memory.byteAt[6] = 0x00;
     memory.byteAt[7] = 0x10; // memory address
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
-    expect(format.asWord(memory.getUint16(0x0010))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
+    expect(memory.getUint16(0x0010)).toEqual(0x0000);
     
     cpu.tick();
     
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0xABCD');
-    expect(format.asWord(memory.getUint16(0x0010))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0xABCD);
+    expect(memory.getUint16(0x0010)).toEqual(0x0000);
     
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0008');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0xABCD');
-    expect(format.asWord(memory.getUint16(0x0010))).toEqual('0xABCD');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0008);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0xABCD);
+    expect(memory.getUint16(0x0010)).toEqual(0xABCD);
 });
 
 test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
@@ -136,15 +134,15 @@ test('cpu should execute instruction MOVE MEMORY TO REGISTER', () => {
     memory.byteAt[4] = 0x23;
     memory.byteAt[5] = 0x45; // value to move
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
-    expect(format.asWord(memory.getUint16(0x0004))).toEqual('0x2345');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
+    expect(memory.getUint16(0x0004)).toEqual(0x2345);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x2345');
-    expect(format.asWord(memory.getUint16(0x0004))).toEqual('0x2345');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x2345);
+    expect(memory.getUint16(0x0004)).toEqual(0x2345);
 
 });
 
@@ -163,31 +161,31 @@ test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
     memory.byteAt[9] = REGISTERS.R1.address;
     memory.byteAt[10] = REGISTERS.R2.address;
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0204');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0204);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
     
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0008');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0204');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0306');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0008);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0204);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0306);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
     
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x000B');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0204');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0306');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x050A');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x000B);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0204);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0306);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x050A);
 });
 
 test('cpu should execute instruction SUBTRACT REGISTER TO REGISTER', () => {
@@ -205,31 +203,31 @@ test('cpu should execute instruction SUBTRACT REGISTER TO REGISTER', () => {
     memory.byteAt[9] = REGISTERS.R1.address;
     memory.byteAt[10] = REGISTERS.R2.address;
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0306');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0306);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0008');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0306');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0102');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0008);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0306);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0102);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x000B');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0306');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R2.address))).toEqual('0x0102');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0204');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x000B);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0306);
+    expect(cpu.registers.get(REGISTERS.R2.address)).toEqual(0x0102);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0204);
 });
 
 test('cpu should execute instruction JUMP EQUAL', () => {
@@ -244,18 +242,18 @@ test('cpu should execute instruction JUMP EQUAL', () => {
     memory.byteAt[7] = 0x00;
     memory.byteAt[8] = 0x1F; // address for jump
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
     
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x1234');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x1234);
     
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x001F');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x1234');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x001F);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x1234);
 });
 
 test('cpu should execute instruction JUMP NOT EQUAL', () => {
@@ -270,18 +268,18 @@ test('cpu should execute instruction JUMP NOT EQUAL', () => {
     memory.byteAt[7] = 0x00;
     memory.byteAt[8] = 0x1F; // address for jump
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x1234');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x1234);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x001F');
-    expect(format.asWord(cpu.registers.get(REGISTERS.ACC.address))).toEqual('0x1234');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x001F);
+    expect(cpu.registers.get(REGISTERS.ACC.address)).toEqual(0x1234);
 });
 
 test('cpu should execute instruction PUSH LITERAL TO STACK', () => {
@@ -289,15 +287,15 @@ test('cpu should execute instruction PUSH LITERAL TO STACK', () => {
     memory.byteAt[1] = 0x12;
     memory.byteAt[2] = 0x34;
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial);
-    expect(format.asWord(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address)))).toEqual('0x0000');
+    expect(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address))).toEqual(0x0000);
     
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0003');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0003);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial - 2);
-    expect(format.asWord(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address) + 2))).toEqual('0x1234');
+    expect(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address) + 2)).toEqual(0x1234);
 });
 
 test('cpu should execute instruction PUSH REGISTER TO STACK', () => {
@@ -309,24 +307,24 @@ test('cpu should execute instruction PUSH REGISTER TO STACK', () => {
     memory.byteAt[4] = INSTRUCTIONS.PSH_REG.opcode;
     memory.byteAt[5] = REGISTERS.R1.address;
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial);
-    expect(format.asWord(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address)))).toEqual('0x0000');
+    expect(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address))).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0004');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x1234');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0004);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x1234);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial);
-    expect(format.asWord(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address)))).toEqual('0x0000');
+    expect(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address))).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0006');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x1234');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0006);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x1234);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial - 2);
-    expect(format.asWord(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address) + 2))).toEqual('0x1234');
+    expect(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address) + 2)).toEqual(0x1234);
 });
 
 test('cpu should execute instruction POP FROM STACK', () => {
@@ -337,21 +335,21 @@ test('cpu should execute instruction POP FROM STACK', () => {
     memory.byteAt[3] = INSTRUCTIONS.POP.opcode;
     memory.byteAt[4] = REGISTERS.R1.address;
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0000');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0000);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial);
-    expect(format.asWord(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address)))).toEqual('0x0000');
+    expect(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address))).toEqual(0x0000);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0003');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x0000');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0003);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x0000);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial - 2);
-    expect(format.asWord(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address) + 2))).toEqual('0x1234');
+    expect(cpu.memory.getUint16(cpu.registers.get(REGISTERS.SP.address) + 2)).toEqual(0x1234);
 
     cpu.tick();
 
-    expect(format.asWord(cpu.registers.get(REGISTERS.IP.address))).toEqual('0x0005');
-    expect(format.asWord(cpu.registers.get(REGISTERS.R1.address))).toEqual('0x1234');
+    expect(cpu.registers.get(REGISTERS.IP.address)).toEqual(0x0005);
+    expect(cpu.registers.get(REGISTERS.R1.address)).toEqual(0x1234);
     expect(cpu.registers.get(REGISTERS.SP.address)).toEqual(cpu.stackPointerInitial);
 });
