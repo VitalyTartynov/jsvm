@@ -8,34 +8,34 @@ class Cpu {
 
         // VM 16 bit, we should have ability to PUSH 2 bytes to stack
         this.stackPointerInitial = this.memory.length - 2;
-        this.registers.setValueByName(REGISTERS.SP, this.stackPointerInitial);
+        this.registers.setValueByName(REGISTERS.SP.name, this.stackPointerInitial);
     }
         
     fetch8() {
-        const address = this.registers.getValueByName(REGISTERS.IP);
+        const address = this.registers.getValueByName(REGISTERS.IP.name);
         const instruction = this.memory.getUint8(address);
-        this.registers.setValueByName(REGISTERS.IP, address + 1);
+        this.registers.setValueByName(REGISTERS.IP.name, address + 1);
         
         return instruction;
     }
     
     fetch16() {
-        const address = this.registers.getValueByName(REGISTERS.IP);
+        const address = this.registers.getValueByName(REGISTERS.IP.name);
         const instruction = this.memory.getUint16(address);
-        this.registers.setValueByName(REGISTERS.IP, address + 2);
+        this.registers.setValueByName(REGISTERS.IP.name, address + 2);
 
         return instruction;
     }
     
     push(value) {
-        const stackAddress = this.registers.getValueByName(REGISTERS.SP);
+        const stackAddress = this.registers.getValueByName(REGISTERS.SP.name);
         this.memory.setUint16(stackAddress, value);
-        this.registers.setValueByName(REGISTERS.SP, stackAddress - 2);        
+        this.registers.setValueByName(REGISTERS.SP.name, stackAddress - 2);        
     }
     
     pop() {
-        const nextStackAddress = this.registers.getValueByName(REGISTERS.SP) + 2;
-        this.registers.setValueByName(REGISTERS.SP, nextStackAddress);
+        const nextStackAddress = this.registers.getValueByName(REGISTERS.SP.name) + 2;
+        this.registers.setValueByName(REGISTERS.SP.name, nextStackAddress);
         
         return this.memory.getUint16(nextStackAddress);
     }
@@ -50,15 +50,15 @@ class Cpu {
         switch (instruction) {
             case INSTRUCTIONS.MOV_LIT_REG.opcode: {
                 const literal = this.fetch16();
-                const registerAddress = this.registers.getAddressByName(this.fetch8());
+                const registerAddress = this.fetch8();
                 this.registers.setValueByAddress(registerAddress, literal);
             
                 return;
             }
         
             case INSTRUCTIONS.MOV_REG_REG.opcode: {
-                const registerAddressFrom = this.registers.getAddressByName(this.fetch8());
-                const registerAddressTo = this.registers.getAddressByName(this.fetch8());
+                const registerAddressFrom = this.fetch8();
+                const registerAddressTo = this.fetch8();
                 const value = this.registers.getValueByAddress(registerAddressFrom);
                 
                 this.registers.setValueByAddress(registerAddressTo, value);
@@ -67,7 +67,7 @@ class Cpu {
             }
         
             case INSTRUCTIONS.MOV_REG_MEM.opcode: {
-                const registerAddressFrom = this.registers.getAddressByName(this.fetch8());
+                const registerAddressFrom = this.fetch8();
                 const memoryAddressTo = this.fetch16();
                 const value = this.registers.getValueByAddress(registerAddressFrom);
                 this.memory.setUint16(memoryAddressTo, value);
@@ -77,7 +77,7 @@ class Cpu {
             
             case INSTRUCTIONS.MOV_MEM_REG.opcode: {
                 const memoryAddressFrom = this.fetch16();
-                const registerAddressTo = this.registers.getAddressByName(this.fetch8());
+                const registerAddressTo = this.fetch8();
                 const value = this.memory.getUint16(memoryAddressFrom);
                 this.registers.setValueByAddress(registerAddressTo, value);
                 
@@ -85,25 +85,25 @@ class Cpu {
             }
         
             case INSTRUCTIONS.ADD_REG_REG.opcode: {
-                const firstRegisterAddress = this.registers.getAddressByName(this.fetch8());
+                const firstRegisterAddress = this.fetch8();
                 const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
                 
-                const secondRegisterAddress = this.registers.getAddressByName(this.fetch8());
+                const secondRegisterAddress = this.fetch8();
                 const secondValue = this.registers.getValueByAddress(secondRegisterAddress);
                 
-                this.registers.setValueByName(REGISTERS.ACC, firstValue + secondValue);
+                this.registers.setValueByName(REGISTERS.ACC.name, firstValue + secondValue);
             
                 return;
             }
             
             case INSTRUCTIONS.SUB_REG_REG.opcode: {
-                const firstRegisterAddress = this.registers.getAddressByName(this.fetch8());
+                const firstRegisterAddress = this.fetch8();
                 const firstValue = this.registers.getValueByAddress(firstRegisterAddress);
 
-                const secondRegisterAddress = this.registers.getAddressByName(this.fetch8());
+                const secondRegisterAddress = this.fetch8();
                 const secondValue = this.registers.getValueByAddress(secondRegisterAddress);
 
-                this.registers.setValueByName(REGISTERS.ACC, firstValue - secondValue);
+                this.registers.setValueByName(REGISTERS.ACC.name, firstValue - secondValue);
 
                 return;
             }
@@ -111,8 +111,8 @@ class Cpu {
             case INSTRUCTIONS.JMP_EQ.opcode: {
                 const value = this.fetch16();
                 const address = this.fetch16();
-                if (value === this.registers.getValueByName(REGISTERS.ACC)) {
-                    this.registers.setValueByName(REGISTERS.IP, address);
+                if (value === this.registers.getValueByName(REGISTERS.ACC.name)) {
+                    this.registers.setValueByName(REGISTERS.IP.name, address);
                 }
                 
                 return;
@@ -121,8 +121,8 @@ class Cpu {
             case INSTRUCTIONS.JMP_NOT_EQ.opcode: {
                 const value = this.fetch16();
                 const address = this.fetch16();
-                if (value !== this.registers.getValueByName(REGISTERS.ACC)) {
-                    this.registers.setValueByName(REGISTERS.IP, address);
+                if (value !== this.registers.getValueByName(REGISTERS.ACC.name)) {
+                    this.registers.setValueByName(REGISTERS.IP.name, address);
                 }
                 
                 return;
@@ -136,14 +136,14 @@ class Cpu {
             }
             
             case INSTRUCTIONS.PSH_REG.opcode: {
-                const registerAddress = this.registers.getAddressByName(this.fetch8());
+                const registerAddress = this.fetch8();
                 this.push(this.registers.getValueByAddress(registerAddress));
                 
                 return;
             }
             
             case INSTRUCTIONS.POP.opcode: {
-                const registerAddress = this.registers.getAddressByName(this.fetch8());
+                const registerAddress = this.fetch8();
                 const value = this.pop();
                 this.registers.setValueByAddress(registerAddress, value);
                 

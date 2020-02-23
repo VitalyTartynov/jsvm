@@ -5,17 +5,25 @@ const REGISTERS = require('../core/register.constant');
 
 class Registers {
     constructor() {
-        this._names = [REGISTERS.IP, REGISTERS.ACC, REGISTERS.SP, REGISTERS.R1, REGISTERS.R2, REGISTERS.R3, REGISTERS.R4];
-        this._memory = new Memory(this._names.length * 2);
+        this._registers = [
+            REGISTERS.IP, 
+            REGISTERS.ACC,
+            REGISTERS.SP, 
+            REGISTERS.R1, 
+            REGISTERS.R2, 
+            REGISTERS.R3, 
+            REGISTERS.R4];
+        this._memory = new Memory(this._registers.length * 2);
 
-        this._map = this._names.reduce((map, name, i) => {
-            map[name] = i * 2;
+        this._map = this._registers.reduce((map, register) => {
+            map[register.name] = register.address;
+            
             return map;
         }, {}); 
     }
 
     getAddressByName(name) {
-        return (name % this._names.length) * 2;
+        return (name % this._registers.length) * 2;
     }
 
     getValueByName(name) {
@@ -36,8 +44,8 @@ class Registers {
 
     debug() {
         let result = '';
-        this._names.forEach(name => {
-            result += `${REGISTERS.registerMappings[name]}: 0x${format.asWord(this.getValueByName(name))}\n`;
+        this._registers.forEach(register => {
+            result += `${register.name}: 0x${format.asWord(this.getValueByAddress(register.address))}\n`;
         });
         
         return result;
