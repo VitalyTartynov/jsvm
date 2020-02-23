@@ -78,6 +78,26 @@ class Cpu {
             
                 return;
             }
+            
+            case INSTRUCTIONS.JMP_EQ: {
+                const value = this.fetch16();
+                const address = this.fetch16();
+                if (value === this.registers.getValueByName(REGISTERS.ACC)) {
+                    this.registers.setValueByName(REGISTERS.IP, address);
+                }
+                
+                return;
+            }
+            
+            case INSTRUCTIONS.JMP_NOT_EQ: {
+                const value = this.fetch16();
+                const address = this.fetch16();
+                if (value !== this.registers.getValueByName(REGISTERS.ACC)) {
+                    this.registers.setValueByName(REGISTERS.IP, address);
+                }
+                
+                return;
+            }
         }
     }
 }

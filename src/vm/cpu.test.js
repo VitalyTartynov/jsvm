@@ -183,3 +183,56 @@ test('cpu should execute instruction ADD REGISTER TO REGISTER', () => {
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.R2))).toEqual('0x0306');
     expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x050A');
 });
+
+test('cpu should execute instruction JUMP EQUAL', () => {
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[1] = 0x12; 
+    memory.byteAt[2] = 0x34;
+    memory.byteAt[3] = REGISTERS.ACC;
+    
+    memory.byteAt[4] = INSTRUCTIONS.JMP_EQ;
+    memory.byteAt[5] = 0x12; 
+    memory.byteAt[6] = 0x34; // value for check
+    memory.byteAt[7] = 0x00;
+    memory.byteAt[8] = 0x1F; // address for jump
+
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x0000');
+    
+    cpu.tick();
+
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0004');
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x1234');
+    
+    cpu.tick();
+
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x001F');
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x1234');
+});
+
+test('cpu should execute instruction JUMP NOT EQUAL', () => {
+
+    memory.byteAt[0] = INSTRUCTIONS.MOV_LIT_REG;
+    memory.byteAt[1] = 0x12;
+    memory.byteAt[2] = 0x34;
+    memory.byteAt[3] = REGISTERS.ACC;
+
+    memory.byteAt[4] = INSTRUCTIONS.JMP_NOT_EQ;
+    memory.byteAt[5] = 0x43;
+    memory.byteAt[6] = 0x21; // value for check
+    memory.byteAt[7] = 0x00;
+    memory.byteAt[8] = 0x1F; // address for jump
+
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0000');
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x0000');
+
+    cpu.tick();
+
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x0004');
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x1234');
+
+    cpu.tick();
+
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.IP))).toEqual('0x001F');
+    expect(format.asWord(cpu.registers.getValueByName(REGISTERS.ACC))).toEqual('0x1234');
+});
