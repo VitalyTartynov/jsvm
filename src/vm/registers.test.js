@@ -1,8 +1,8 @@
 ﻿const Registers = require('./registers');
 
-let registers;
-
 describe('Registers', () => {
+  let registers;
+  
   beforeEach(() => {
     registers = new Registers();
   });

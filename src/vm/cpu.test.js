@@ -5,16 +5,16 @@ const Cpu = require('./cpu');
 
 const REGISTER = require('../core/register.constant');
 
-const ramSize = 64;
-const flashSize = 32;
-    
-let ram;
-let registers;
-let alu;
-let flash;
-let cpu;
+describe('CPU', () => {
+  const ramSize = 64;
+  const flashSize = 32;
 
-describe('CPU', () => {    
+  let ram;
+  let registers;
+  let alu;
+  let flash;
+  let cpu;
+  
   beforeEach(() => {
     ram = new Memory(ramSize);
     registers = new Registers();

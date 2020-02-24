@@ -1,10 +1,10 @@
 ﻿const Memory = require('../vm/memory');
 const HexMemoryLoader = require('./memory.loader');
 
-let memory;
-let loader;
-
 describe('Hex memory loader', () => {
+  let memory;
+  let loader;
+  
   beforeEach(() => {
     memory = new Memory(8);
     loader = new HexMemoryLoader();
