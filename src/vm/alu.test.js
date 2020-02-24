@@ -348,3 +348,25 @@ test('alu should execute instruction POP FROM STACK', () => {
     expect(cpu.registers.get(REGISTER.R1.address)).toEqual(0x1234);
     expect(cpu.registers.get(REGISTER.SP.address)).toEqual(cpu.stackPointerInitial);
 });
+
+test('alu should execute instruction JUMP', () => {
+    ram.byteAt[0] = INSTRUCTION.JMP.opcode;
+    ram.byteAt[1] = 0x00;
+    ram.byteAt[2] = 0x04; // jump to 0x0004
+    
+    ram.byteAt[3] = INSTRUCTION.NOP.opcode; 
+
+    ram.byteAt[4] = INSTRUCTION.JMP.opcode;
+    ram.byteAt[5] = 0x00;
+    ram.byteAt[6] = 0x00; // jump back to 0x0000
+
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
+
+    cpu.tick();
+
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0004);
+
+    cpu.tick();
+
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
+});

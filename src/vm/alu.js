@@ -101,6 +101,13 @@ class Alu {
 
                 return;
             }
+            
+            case INSTRUCTION.JMP.opcode: {
+                const address = this.fetch16();
+                this.registers.set(REGISTER.IP.address, address);
+                
+                return;
+            }
 
             case INSTRUCTION.JMP_EQ.opcode: {
                 const value = this.fetch16();

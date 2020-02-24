@@ -12,6 +12,7 @@ const JMP_NOT_EQ  = new Instruction(0x17, 'JNE', 'JNE WORD 0x****');
 const PSH_LIT     = new Instruction(0x18, 'PUSH', 'PUSH WORD -> STACK');
 const PSH_REG     = new Instruction(0x19, 'PUSH', 'PUSH Rx -> STACK');
 const POP         = new Instruction(0x1A, 'POP', 'POP Rx <- STACK');
+const JMP         = new Instruction(0x1B, 'JMP', 'JUMP WORD');
 
 module.exports = {
     NOP,
@@ -26,4 +27,5 @@ module.exports = {
     PSH_LIT,
     PSH_REG,
     POP,
+    JMP,
 };
