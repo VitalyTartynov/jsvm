@@ -15,6 +15,7 @@ const POP         = new Instruction(0x1A, 'POP', 'POP Rx <- STACK');
 const JMP         = new Instruction(0x1B, 'JMP', 'JUMP WORD');
 
 const UNKNOWN     = new Instruction(0xBC, 'UNKNOWN', 'UNKNOWN INSTRUCTION');
+const HLT         = new Instruction(0xFF, 'HALT', 'HALT');
 
 module.exports = {
   NOP,
@@ -31,4 +32,5 @@ module.exports = {
   POP,
   JMP,
   UNKNOWN,
+  HLT
 };

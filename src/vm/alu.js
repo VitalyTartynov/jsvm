@@ -150,6 +150,10 @@ class Alu {
 
         return;
       }
+      
+      case INSTRUCTION.HLT.opcode: {
+        return true;
+      }
             
       default: {
         throw new Error(`Tried to execute unknown opcode ${opcode}. ALU stopped.`);
