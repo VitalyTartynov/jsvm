@@ -17,6 +17,13 @@ class Cpu {
         
     return this.alu.execute(opcode);
   }
+  
+  run() {
+    let isHalt = false;
+    do {
+      isHalt = this.tick();
+    } while (!isHalt);
+  }
 }
 
 module.exports = Cpu;
