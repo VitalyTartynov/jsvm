@@ -1,6 +1,6 @@
 const Instruction = require('./instruction');
 
-const NOP         = new Instruction(0x00, 'NOP', 'No operation');
+const NOP         = new Instruction(0x00, 'NOP', 'NO OPERATION');
 const MOV_LIT_REG = new Instruction(0x10, 'MOV', 'MOVE WORD Rx -> Rx');
 const MOV_REG_REG = new Instruction(0x11, 'MOV', 'MOVE Rx Ry -> Ry');
 const MOV_REG_MEM = new Instruction(0x12, 'MOV', 'MOVE Rx 0x**** -> 0x****');
@@ -13,6 +13,8 @@ const PSH_LIT     = new Instruction(0x18, 'PUSH', 'PUSH WORD -> STACK');
 const PSH_REG     = new Instruction(0x19, 'PUSH', 'PUSH Rx -> STACK');
 const POP         = new Instruction(0x1A, 'POP', 'POP Rx <- STACK');
 const JMP         = new Instruction(0x1B, 'JMP', 'JUMP WORD');
+
+const UNKNOWN     = new Instruction(0xBC, 'UNKNOWN', 'UNKNOWN INSTRUCTION');
 
 module.exports = {
     NOP,
@@ -28,4 +30,5 @@ module.exports = {
     PSH_REG,
     POP,
     JMP,
+    UNKNOWN,
 };

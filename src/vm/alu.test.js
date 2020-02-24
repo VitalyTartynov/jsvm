@@ -372,8 +372,9 @@ test('alu should execute instruction JUMP', () => {
 });
 
 test('alu should throw exception on unknown opcode', () => {
-    ram.byteAt[0] = 0xBC // this is unknown operation code
+    ram.byteAt[0] = INSTRUCTION.UNKNOWN.opcode;
     
+    // eslint-disable-next-line require-jsdoc
     function tryToTick() {
         cpu.tick();
     }

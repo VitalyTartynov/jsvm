@@ -8,5 +8,5 @@ test('instruction should have debug info', () => {
     const info = INSTRUCTION.NOP.toString();
     
     expect(info).toBeTruthy();
-    expect(info).toEqual('NOP \t: 0x00 \t: No operation');
+    expect(info).toEqual('NOP \t: 0x00 \t: NO OPERATION');
 });
