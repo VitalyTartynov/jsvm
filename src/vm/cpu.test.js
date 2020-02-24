@@ -14,26 +14,28 @@ let alu;
 let flash;
 let cpu;
 
-beforeEach(() => {
+describe('CPU', () => {    
+  beforeEach(() => {
     ram = new Memory(ramSize);
     registers = new Registers();
     alu = new Alu(ram, registers);
     flash = new Memory(flashSize);
     cpu = new Cpu(ram, registers, alu, flash);
-});
-
-test('cpu should be createable', () => {
+  });
+    
+  test('should be created', () => {
     expect(cpu).toBeTruthy();
-});
-
-test('cpu should contain ram, registers, alu and flash', () => {
+  });
+    
+  test('should contain ram, registers, alu and flash', () => {
     expect(cpu.ram).toBeTruthy();
     expect(cpu.registers).toBeTruthy();
     expect(cpu.alu).toBeTruthy();
     expect(cpu.flash).toBeTruthy();
-});
-
-test('cpu stack pointer should point to end of memory after start', () => {
+  });
+    
+  test('stack pointer should point to end of memory after start', () => {
     expect(cpu.registers.get(REGISTER.SP.address)).toBe(cpu.stackPointerInitial);
+  });
 });
 

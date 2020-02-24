@@ -9,11 +9,11 @@ const R3 = new Register('R3', 0x0A, 'General Purpose register 3');
 const R4 = new Register('R4', 0x0C, 'General Purpose register 4');
 
 module.exports = {
-    IP,
-    AC,
-    SP,
-    R1,
-    R2,
-    R3,
-    R4,
+  IP,
+  AC,
+  SP,
+  R1,
+  R2,
+  R3,
+  R4,
 };
