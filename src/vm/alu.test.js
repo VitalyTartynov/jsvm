@@ -370,3 +370,13 @@ test('alu should execute instruction JUMP', () => {
 
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
 });
+
+test('alu should throw exception on unknown opcode', () => {
+    ram.byteAt[0] = 0xBC // this is unknown operation code
+    
+    function tryToTick() {
+        cpu.tick();
+    }
+    
+    expect(tryToTick).toThrowError();
+});

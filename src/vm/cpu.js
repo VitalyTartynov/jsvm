@@ -13,9 +13,9 @@ class Cpu {
     }
         
     tick() {
-        const instruction = this.alu.fetch8();
+        const opcode = this.alu.fetch8();
         
-        return this.alu.execute(instruction);
+        return this.alu.execute(opcode);
     }
 }
 

@@ -36,8 +36,8 @@ class Alu {
         return this.memory.getUint16(nextStackAddress);
     }
     
-    execute(instruction) {
-        switch (instruction) {
+    execute(opcode) {
+        switch (opcode) {
             case INSTRUCTION.NOP.opcode: {
                 return;
             }
@@ -149,6 +149,10 @@ class Alu {
                 this.registers.set(registerAddress, value);
 
                 return;
+            }
+            
+            default: {
+                throw new Error(`Tried to execute unknown opcode ${opcode}. ALU stopped.`);
             }
         }
     }
