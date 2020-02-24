@@ -1,12 +1,16 @@
 ﻿const format = require('./format');
 
-class MemoryLoader {
+class HexMemoryLoader {
+  constructor() {
+    this.delimeter = ' ';
+  }
+  
   save(memory) {
     let result = '';
     for (let i = 0; i < memory.length; i++) {
       result += format.asByte(memory.byteAt[i]);
       if (i !== memory.length - 1) {
-        result += ' ';
+        result += this.delimeter;
       }
     }
         
@@ -14,7 +18,7 @@ class MemoryLoader {
   }
     
   load(data, memory) {
-    const values = data.split(' ');
+    const values = data.split(this.delimeter);
         
     if (values.length > memory.length) {
       throw new Error('Program is bigger than memory');
@@ -26,4 +30,4 @@ class MemoryLoader {
   }
 }
 
-module.exports = MemoryLoader;
+module.exports = HexMemoryLoader;

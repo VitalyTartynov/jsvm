@@ -1,16 +1,16 @@
 ﻿const Memory = require('../vm/memory');
-const MemoryLoader = require('./memory.loader');
+const HexMemoryLoader = require('./memory.loader');
 
 let memory;
 let loader;
 
-describe('Memory loader', () => {
+describe('Hex memory loader', () => {
   beforeEach(() => {
     memory = new Memory(8);
-    loader = new MemoryLoader();
+    loader = new HexMemoryLoader();
   });
     
-  test('should save bytecode to string', () => {
+  test('should save HEX bytecode to string', () => {
     memory.byteAt[0] = 0x01;
     memory.byteAt[1] = 0x23;
     memory.byteAt[2] = 0x45;
@@ -26,7 +26,7 @@ describe('Memory loader', () => {
     expect(result).toEqual('0x01 0x23 0x45 0x67 0x89 0xAB 0xCD 0xEF');
   });
     
-  test('should load bytecode from string', () => {
+  test('should load HEX bytecode from string', () => {
     const data = '0x01 0x23 0x45 0x67 0x89 0xAB 0xCD 0xEF';
         
     loader.load(data, memory);
@@ -41,7 +41,7 @@ describe('Memory loader', () => {
     expect(memory.byteAt[7]).toBe(0xEF);
   });
     
-  test('should throw error when bytecode bigger than memory', () => {
+  test('should throw error when HEX bytecode bigger than memory', () => {
     // eslint-disable-next-line require-jsdoc
     function loadBiggerBytecode() {
       const data = '0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00';
