@@ -1,4 +1,6 @@
-﻿class Instruction {
+﻿const format = require('../core/format');
+
+class Instruction {
     /**
      * CPU instruction instance
      * @param opcode Operation code.
@@ -9,6 +11,10 @@
         this.command = command;
         this.opcode = opcode;
         this.description = description;
+    }
+    
+    toString() {
+        return `${this.command} \t: ${format.asByte(this.opcode)} \t: ${this.description}`;
     }
 }
 
