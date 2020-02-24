@@ -1,22 +1,22 @@
 ﻿const REGISTER = require('../core/register.constant');
 
 class Cpu {
-    constructor(ram, registers, alu, flash) {
-        this.ram = ram;
-        this.registers = registers;
-        this.alu = alu;
-        this.flash = flash;
+  constructor(ram, registers, alu, flash) {
+    this.ram = ram;
+    this.registers = registers;
+    this.alu = alu;
+    this.flash = flash;
 
-        // VM 16 bit, we should have ability to PUSH 2 bytes to stack
-        this.stackPointerInitial = this.ram.length - 2;
-        this.registers.set(REGISTER.SP.address, this.stackPointerInitial);
-    }
+    // VM 16 bit, we should have ability to PUSH 2 bytes to stack
+    this.stackPointerInitial = this.ram.length - 2;
+    this.registers.set(REGISTER.SP.address, this.stackPointerInitial);
+  }
         
-    tick() {
-        const opcode = this.alu.fetch8();
+  tick() {
+    const opcode = this.alu.fetch8();
         
-        return this.alu.execute(opcode);
-    }
+    return this.alu.execute(opcode);
+  }
 }
 
 module.exports = Cpu;

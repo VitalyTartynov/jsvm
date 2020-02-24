@@ -4,7 +4,7 @@
  * @returns {string} Result HEX value as string.
  */
 function asByte(value) {
-    return _format(value, 2);
+  return _format(value, 2);
 }
 
 /**
@@ -13,7 +13,7 @@ function asByte(value) {
  * @returns {string} Result HEX value as string.
  */
 function asWord(value) {
-    return _format(value, 4);
+  return _format(value, 4);
 }
 
 /**
@@ -22,7 +22,7 @@ function asWord(value) {
  * @returns {string} Result HEX value as string.
  */
 function asDword(value) {
-    return _format(value, 8);
+  return _format(value, 8);
 }
 
 /**
@@ -31,7 +31,7 @@ function asDword(value) {
  * @returns {string} Result HEX value as string.
  */
 function asQword(value) {
-    return _format(value, 16);
+  return _format(value, 16);
 }
 
 /**
@@ -42,24 +42,24 @@ function asQword(value) {
  * @private
  */
 function _format(value, base) {
-    if (value < 0) {
-        throw new Error('Negative values not allowed');
-    }
+  if (value < 0) {
+    throw new Error('Negative values not allowed');
+  }
 
-    let hexValue = value.toString(16)
-        .padStart(base, '0')
-        .toUpperCase();
+  let hexValue = value.toString(16)
+    .padStart(base, '0')
+    .toUpperCase();
 
-    if (hexValue.length > base) {
-        hexValue = hexValue.substring(hexValue.length - base);
-    }
+  if (hexValue.length > base) {
+    hexValue = hexValue.substring(hexValue.length - base);
+  }
 
-    return `0x${hexValue}`;
+  return `0x${hexValue}`;
 }
 
 module.exports = {
-    asByte,
-    asWord,
-    asDword,
-    asQword
+  asByte,
+  asWord,
+  asDword,
+  asQword
 };
