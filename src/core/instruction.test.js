@@ -1,18 +1,12 @@
-﻿const Instruction = require('./instruction');
-
-let nopInstruction;
-
-beforeEach(() => {
-    nopInstruction = new Instruction(0x00, 'NOP', 'Not operation');
-});
+﻿const INSTRUCTION = require('./instruction.constant');
 
 test('instruction should be createable', () => {
-    expect(nopInstruction).toBeTruthy();
+    expect(INSTRUCTION.NOP).toBeTruthy();
 });
 
 test('instruction should have debug info', () => {
-    const info = nopInstruction.toString();
+    const info = INSTRUCTION.NOP.toString();
     
     expect(info).toBeTruthy();
-    expect(info).toEqual('NOP \t: 0x00 \t: Not operation');
+    expect(info).toEqual('NOP \t: 0x00 \t: No operation');
 });

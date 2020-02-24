@@ -48,6 +48,16 @@ test('cpu should fetch 16 bit instruction from memory', () => {
     expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0002);
 });
 
+test('cpu should execute instruction NO OPERATION', () => {
+    memory.byteAt[0] = INSTRUCTION.NOP.opcode;
+
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
+
+    cpu.tick();
+
+    expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0001);
+});
+
 test('cpu should execute instruction MOVE LITERAL TO REGISTER', () => {
     memory.byteAt[0] = INSTRUCTION.MOV_LIT_REG.opcode;
     memory.byteAt[1] = 0xAB;

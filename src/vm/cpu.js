@@ -48,6 +48,10 @@ class Cpu {
     
     execute(instruction) {
         switch (instruction) {
+            case INSTRUCTION.NOP.opcode: {
+                return;
+            }
+            
             case INSTRUCTION.MOV_LIT_REG.opcode: {
                 const literal = this.fetch16();
                 const registerAddress = this.fetch8();
