@@ -1,5 +1,6 @@
-﻿const format = require('../core/format');
-const Memory = require('./memory');
+﻿const Memory = require('./memory');
+
+const format = require('../common/format');
 
 const REGISTER = require('../core/register.constant');
 

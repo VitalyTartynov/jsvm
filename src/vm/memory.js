@@ -1,4 +1,4 @@
-const format = require('../core/format');
+const format = require('../common/format');
 
 class Memory {    
   constructor(sizeInBytes) {
