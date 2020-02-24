@@ -25,10 +25,19 @@ class Memory {
         this._memory.setUint16(address, newValue);
     }
 
-    debugAt(address) {
-        const nextBytes = Array.from({length: 8}, (_, i) => this._memory.getUint8(address + i)).map(value => format.asByte(value));
+    debugAt(address, lines = 1) {
+        let result = '';
+        const bytesInOneLine = 8;
+        for (let i = 0; i < lines; i++) {
+            const nextBytes = Array.from({length: bytesInOneLine}, (_, i) => this._memory.getUint8(address + i)).map(value => format.asByte(value));
+            result += `${format.asWord(address)}: ${nextBytes.join(' ')}`;
+            if (i !== lines - 1) {
+                result += '\n';
+                address += bytesInOneLine;
+            }
+        }
         
-        return `${format.asWord(address)}: ${nextBytes.join(' ')}`;
+        return result;
     }
 }
 
