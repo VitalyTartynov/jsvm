@@ -11,15 +11,19 @@ Virtual CPU use:
  
 Flash memory now not used.
 
-## Program execution
-After start IP register contain `0x0000` address, fetch instruction from RAM and start executing.   
-
 ## Register set
 Actual information can be found [here](./src/core/register.constant.js).
  * IP - Instruction pointer. Register value contains memory address of next command for executing.
  * AC - Accumulator.
  * SP - Stack pointer. Register value contains memory address of stack head.
  * Rx - some of general purpose registers. 
+
+## Program execution
+After CPU start IP register contain `0x0000` address, fetch instruction from RAM and start executing.   
+
+## Stack
+After CPU start SP register contain `RAM memory size - 2` address. 
+After push some data SP value decreased by 2 bytes and after pop - increased by 2 bytes. 
 
 ## Instruction set
 Actual information can be found [here](./src/core/instruction.constant.js).
@@ -31,5 +35,3 @@ Actual information can be found [here](./src/core/instruction.constant.js).
 | 0x??   | `PUSH`  | `Rx`         | `PUSH R4`     | Push register value to stack        |
 | 0x??   | `POP`   | `Rx`         | `POP R1`      | Pop value from stack to register    |
 | 0xFF   | `HLT`   |              |               | Halt                                |
-
-## Stack
