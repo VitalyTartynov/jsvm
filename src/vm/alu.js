@@ -160,7 +160,10 @@ class Alu {
       }
 
       case INSTRUCTION.RET.opcode: {
-        throw new Error('Not implemented');
+        const address = this.pop();
+        this.registers.set(REGISTER.IP.address, address);
+        
+        return;
       }      
       
       case INSTRUCTION.HLT.opcode: {
