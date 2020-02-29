@@ -385,5 +385,32 @@ describe('ALU', () => {
             
       expect(tryToTick).toThrowError();
     });
+
+    test('should execute instruction CALL', () => {
+      ram.byteAt[0] = INSTRUCTION.CALL.opcode;
+      ram.byteAt[1] = 0x00;
+      ram.byteAt[2] = 0x04; // address for call
+      
+      ram.byteAt[3] = 0x00;
+      
+      ram.byteAt[4] = INSTRUCTION.CALL.opcode;
+      ram.byteAt[5] = 0x00;
+      ram.byteAt[6] = 0x00; // address for call
+
+      expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
+      expect(cpu.registers.get(REGISTER.SP.address)).toEqual(cpu.stackPointerInitial);
+
+      cpu.tick();
+
+      expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0004);
+      expect(cpu.registers.get(REGISTER.SP.address)).toEqual(cpu.stackPointerInitial - 2);
+      expect(ram.getUint16(cpu.stackPointerInitial)).toEqual(0x0003);
+
+      cpu.tick();
+
+      expect(cpu.registers.get(REGISTER.IP.address)).toEqual(0x0000);
+      expect(cpu.registers.get(REGISTER.SP.address)).toEqual(cpu.stackPointerInitial - 4);
+      expect(ram.getUint16(cpu.stackPointerInitial - 2)).toEqual(0x0007);
+    });
   });
 });

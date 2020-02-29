@@ -151,6 +151,18 @@ class Alu {
         return;
       }
       
+      case INSTRUCTION.CALL.opcode: {
+        const address = this.fetch16();
+        this.push(this.registers.get(REGISTER.IP.address));
+        this.registers.set(REGISTER.IP.address, address);
+        
+        return;
+      }
+
+      case INSTRUCTION.RET.opcode: {
+        throw new Error('Not implemented');
+      }      
+      
       case INSTRUCTION.HLT.opcode: {
         return true;
       }
