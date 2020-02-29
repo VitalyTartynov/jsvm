@@ -13,6 +13,8 @@ const PSH_LIT     = new Instruction(0x18, 'PUSH', 'PUSH WORD -> STACK');
 const PSH_REG     = new Instruction(0x19, 'PUSH', 'PUSH Rx -> STACK');
 const POP         = new Instruction(0x1A, 'POP', 'POP Rx <- STACK');
 const JMP         = new Instruction(0x1B, 'JMP', 'JUMP WORD');
+const CALL        = new Instruction(0x1C, 'CALL', 'CALL 0x****');
+const RET         = new Instruction(0x1D, 'RET', 'RETURN');
 
 const UNKNOWN     = new Instruction(0xBC, 'UNKNOWN', 'UNKNOWN INSTRUCTION');
 const HLT         = new Instruction(0xFF, 'HALT', 'HALT');
@@ -31,6 +33,8 @@ module.exports = {
   PSH_REG,
   POP,
   JMP,
+  CALL,
+  RET,
   UNKNOWN,
   HLT
 };
