@@ -1,4 +1,4 @@
-﻿﻿const Register = require('../../core/register');
+﻿const Register = require('../../core/register');
 
 const IP = new Register('IP', 0x00, 'Instruction Pointer');
 const AC = new Register('AC', 0x02, 'Accumulator');
