@@ -3,7 +3,7 @@ const Registers = require('./registers');
 const Alu = require('./alu');
 const Cpu = require('./cpu');
 
-const INSTRUCTION = require('../core/instruction.constant');
+const INSTRUCTION = require('../architecture/sample/instruction.constant');
 const REGISTER = require('../architecture/sample/register.constant');
 
 describe('ALU', () => {

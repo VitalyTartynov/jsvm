@@ -1,4 +1,4 @@
-﻿const INSTRUCTION = require('../core/instruction.constant');
+﻿const INSTRUCTION = require('../architecture/sample/instruction.constant');
 const REGISTER = require('../architecture/sample/register.constant');
 
 class Alu {
