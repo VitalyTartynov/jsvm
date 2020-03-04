@@ -3,8 +3,8 @@ const Registers = require('./registers');
 const Alu = require('./alu');
 const Cpu = require('./cpu');
 
-const INSTRUCTION = require('../core/instruction.constant');
-const REGISTER = require('../core/register.constant');
+const INSTRUCTION = require('../architecture/sample/instruction.constant');
+const REGISTER = require('../architecture/sample/register.constant');
 
 describe('CPU', () => {
   const ramSize = 64;
@@ -18,7 +18,7 @@ describe('CPU', () => {
   
   beforeEach(() => {
     ram = new Memory(ramSize);
-    registers = new Registers();
+    registers = new Registers(REGISTER.ALL);
     alu = new Alu(ram, registers);
     flash = new Memory(flashSize);
     cpu = new Cpu(ram, registers, alu, flash);

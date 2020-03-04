@@ -1,4 +1,4 @@
-﻿const REGISTER = require('../core/register.constant');
+﻿const REGISTER = require('../architecture/sample/register.constant');
 
 class Cpu {
   constructor(ram, registers, alu, flash) {

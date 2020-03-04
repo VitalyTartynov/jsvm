@@ -1,4 +1,4 @@
-const Instruction = require('./instruction');
+const Instruction = require('../../core/instruction');
 
 const NOP         = new Instruction(0x00, 'NOP', 'NO OPERATION');
 const MOV_LIT_REG = new Instruction(0x10, 'MOV', 'MOVE WORD Rx -> Rx');

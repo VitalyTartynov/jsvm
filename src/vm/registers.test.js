@@ -1,10 +1,12 @@
 ﻿const Registers = require('./registers');
 
+const REGISTER = require('../architecture/sample/register.constant');
+
 describe('Registers', () => {
   let registers;
   
   beforeEach(() => {
-    registers = new Registers();
+    registers = new Registers(REGISTER.ALL);
   });
     
   test('should be created', () => {

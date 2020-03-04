@@ -1,5 +1,5 @@
-﻿const INSTRUCTION = require('../core/instruction.constant');
-const REGISTER = require('../core/register.constant');
+﻿const INSTRUCTION = require('../architecture/sample/instruction.constant');
+const REGISTER = require('../architecture/sample/register.constant');
 
 class Alu {
   constructor(memory, registers) {

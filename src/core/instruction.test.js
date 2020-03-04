@@ -1,4 +1,4 @@
-﻿const INSTRUCTION = require('./instruction.constant');
+﻿const INSTRUCTION = require('../architecture/sample/instruction.constant');
 
 describe('Instruction', () => {
   test('should be created', () => {
