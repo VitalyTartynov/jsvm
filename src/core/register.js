@@ -1,9 +1,9 @@
 ﻿class Register {
   /**
    * Register instance
-   * @param name Human-friendly name of register.
-   * @param address Address of register in internal register memory.
-   * @param description Some description about register.
+   * @param {string} name Human-friendly name of register.
+   * @param {number} address Address of register in internal register memory.
+   * @param {string} description Some description about register.
    */
   constructor(name, address, description) {
     this.name = name;

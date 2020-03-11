@@ -12,11 +12,11 @@ describe('Logger', () => {
   });
   
   test('should log message', () => {
-    logger.log = jest.fn();
+    logger.debug = jest.fn();
     
-    logger.log('test log message');
-    
-    expect(logger.log).toBeCalledTimes(1);
+    logger.debug('test log message');
+        
+    expect(logger.debug).toBeCalledTimes(1);
   });
 
   test('should error message', () => {

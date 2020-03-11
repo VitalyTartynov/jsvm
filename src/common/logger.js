@@ -1,23 +1,31 @@
-﻿
+﻿const LOGLEVEL = require('./log-level.constant');
+
 class Logger {
-  constructor(outputProvider) {
+  constructor(outputProvider, logLevel = LOGLEVEL.ERROR) {
     this.outpuProvider = outputProvider;
+    this.logLevel = logLevel;
   }
 
   /**
    * Log message
-   * @param message Message string
+   * @param {string} message Message string
+   * @returns {undefined}
    */
-  log(message) {
-    this.outpuProvider.log(message);
+  debug(message) {
+    if (this.logLevel >= LOGLEVEL.DEBUG) {
+      this.outpuProvider.log(message);
+    }    
   }
 
   /**
    * Log error message 
-   * @param message Error message string
+   * @param {string} message Error message string
+   * @returns {undefined}
    */
   error(message) {
-    this.outpuProvider.error(message);
+    if (this.logLevel >= LOGLEVEL.ERROR) {
+      this.outpuProvider.error(message);
+    }    
   }
 }
 
