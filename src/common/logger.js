@@ -2,19 +2,41 @@
 
 class Logger {
   constructor(outputProvider, logLevel = LOGLEVEL.ERROR) {
-    this.outpuProvider = outputProvider;
+    this.outputProvider = outputProvider;
     this.logLevel = logLevel;
   }
 
   /**
-   * Log message
-   * @param {string} message Message string
+   * Log debug message
+   * @param {string} message Debug message string
    * @returns {undefined}
    */
   debug(message) {
-    if (this.logLevel >= LOGLEVEL.DEBUG) {
-      this.outpuProvider.log(message);
+    if (this.logLevel <= LOGLEVEL.DEBUG) {
+      this.outputProvider.debug(message);
     }    
+  }
+
+  /**
+   * Log info message
+   * @param {string} message Info message string
+   * @returns {undefined}
+   */
+  info(message) {
+    if (this.logLevel <= LOGLEVEL.INFO) {
+      this.outputProvider.info(message);
+    }
+  }
+
+  /**
+   * Log warning message
+   * @param {string} message Warning message string
+   * @returns {undefined}
+   */
+  warn(message) {
+    if (this.logLevel <= LOGLEVEL.WARN) {
+      this.outputProvider.warn(message);
+    }
   }
 
   /**
@@ -23,9 +45,20 @@ class Logger {
    * @returns {undefined}
    */
   error(message) {
-    if (this.logLevel >= LOGLEVEL.ERROR) {
-      this.outpuProvider.error(message);
+    if (this.logLevel <= LOGLEVEL.ERROR) {
+      this.outputProvider.error(message);
     }    
+  }
+
+  /**
+   * Log fatal message
+   * @param {string} message Fatal message string
+   * @returns {undefined}
+   */
+  fatal(message) {
+    if (this.logLevel <= LOGLEVEL.FATAL) {
+      this.outputProvider.fatal(message);
+    }
   }
 }
 
