@@ -32,11 +32,12 @@
             "always"
         ],
         "no-var": "error",
+        "valid-jsdoc": "error",
         "require-jsdoc": ["error", {
             "require": {
                 "FunctionDeclaration": true,
                 "MethodDefinition": false,
-                "ClassDeclaration": false,
+                "ClassDeclaration": true,
                 "ArrowFunctionExpression": false,
                 "FunctionExpression": false
             }

@@ -1,5 +1,8 @@
 const format = require('../common/format');
 
+/**
+ * Computer memory. 
+ */
 class Memory {    
   constructor(sizeInBytes) {
     const array = new ArrayBuffer(sizeInBytes);

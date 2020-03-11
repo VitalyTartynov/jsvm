@@ -1,13 +1,13 @@
 ﻿const Memory = require('../vm/memory');
-const HexMemoryLoader = require('./memory.loader');
+const HexMemorySerializer = require('./memory.serializer');
 
 describe('Hex memory loader', () => {
   let memory;
-  let loader;
+  let serializer;
   
   beforeEach(() => {
     memory = new Memory(8);
-    loader = new HexMemoryLoader();
+    serializer = new HexMemorySerializer();
   });
     
   test('should save HEX bytecode to string', () => {
@@ -20,7 +20,7 @@ describe('Hex memory loader', () => {
     memory.byteAt[6] = 0xCD;
     memory.byteAt[7] = 0xEF;
         
-    const result = loader.save(memory);
+    const result = serializer.serialize(memory);
         
     expect(result).toBeTruthy();
     expect(result).toEqual('0x01 0x23 0x45 0x67 0x89 0xAB 0xCD 0xEF');
@@ -29,7 +29,7 @@ describe('Hex memory loader', () => {
   test('should load HEX bytecode from string', () => {
     const data = '0x01 0x23 0x45 0x67 0x89 0xAB 0xCD 0xEF';
         
-    loader.load(data, memory);
+    serializer.deserialize(data, memory);
         
     expect(memory.byteAt[0]).toBe(0x01);
     expect(memory.byteAt[1]).toBe(0x23);
@@ -45,7 +45,7 @@ describe('Hex memory loader', () => {
     // eslint-disable-next-line require-jsdoc
     function loadBiggerBytecode() {
       const data = '0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00';
-      loader.load(data, memory);
+      serializer.load(data, memory);
     }
         
     expect(loadBiggerBytecode).toThrowError();
