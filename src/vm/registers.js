@@ -2,6 +2,9 @@
 
 const format = require('../common/format');
 
+/**
+ * CPU register set.
+ */
 class Registers {
   constructor(registerNames) {
     this._registers = registerNames;

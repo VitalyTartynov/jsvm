@@ -1,5 +1,8 @@
 ﻿const LOGLEVEL = require('./log-level.constant');
 
+/**
+ * Log information using selected provider.
+ */
 class Logger {
   constructor(outputProvider, logLevel = LOGLEVEL.ERROR) {
     this.outputProvider = outputProvider;
@@ -7,8 +10,8 @@ class Logger {
   }
 
   /**
-   * Log debug message
-   * @param {string} message Debug message string
+   * Log debug message.
+   * @param {string} message Debug message string.
    * @returns {undefined}
    */
   debug(message) {
@@ -18,8 +21,8 @@ class Logger {
   }
 
   /**
-   * Log info message
-   * @param {string} message Info message string
+   * Log info message.
+   * @param {string} message Info message string.
    * @returns {undefined}
    */
   info(message) {
@@ -29,8 +32,8 @@ class Logger {
   }
 
   /**
-   * Log warning message
-   * @param {string} message Warning message string
+   * Log warning message.
+   * @param {string} message Warning message string.
    * @returns {undefined}
    */
   warn(message) {
@@ -40,8 +43,8 @@ class Logger {
   }
 
   /**
-   * Log error message 
-   * @param {string} message Error message string
+   * Log error message.
+   * @param {string} message Error message string.
    * @returns {undefined}
    */
   error(message) {
@@ -51,8 +54,8 @@ class Logger {
   }
 
   /**
-   * Log fatal message
-   * @param {string} message Fatal message string
+   * Log fatal message.
+   * @param {string} message Fatal message string.
    * @returns {undefined}
    */
   fatal(message) {

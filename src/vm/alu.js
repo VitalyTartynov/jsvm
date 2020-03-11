@@ -1,6 +1,9 @@
 ﻿const INSTRUCTION = require('../architecture/sample/instruction.constant');
 const REGISTER = require('../architecture/sample/register.constant');
 
+/**
+ * CPU arithmetic logic unit.
+ */
 class Alu {
   constructor(memory, registers) {
     this.memory = memory;

@@ -1,9 +1,11 @@
-﻿
+﻿/**
+ * Console provider for logging information.
+ */
 class ConsoleProvider {
 
   /**
-   * Log debug message to console
-   * @param {string} message Debug message string
+   * Log debug message to console.
+   * @param {string} message Debug message string.
    * @returns {undefined}
    */
   debug(message) {
@@ -11,8 +13,8 @@ class ConsoleProvider {
   }
 
   /**
-   * Log info message to console
-   * @param {string} message Info message string
+   * Log info message to console.
+   * @param {string} message Info message string.
    * @returns {undefined}
    */
   info(message) {
@@ -20,8 +22,8 @@ class ConsoleProvider {
   }
 
   /**
-   * Log warning message to console
-   * @param {string} message Warning message string
+   * Log warning message to console.
+   * @param {string} message Warning message string.
    * @returns {undefined}
    */
   warn(message) {
@@ -29,8 +31,8 @@ class ConsoleProvider {
   }
 
   /**
-   * Log error message to console
-   * @param {string} message Error message string
+   * Log error message to console.
+   * @param {string} message Error message string.
    * @returns {undefined}
    */
   error(message) {
@@ -38,8 +40,8 @@ class ConsoleProvider {
   }
 
   /**
-   * Log fatal message to console
-   * @param {string} message Fatal message string
+   * Log fatal message to console.
+   * @param {string} message Fatal message string.
    * @returns {undefined}
    */
   fatal(message) {
