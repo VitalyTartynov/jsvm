@@ -1,13 +1,10 @@
 ﻿const Logger = require('./logger');
-const ConsoleProvider = require('./log-output-providers/console.provider');
 
 describe('Logger', () => {
   let logger;
-  let consoleProvider;
   
   beforeEach(() => {
-    consoleProvider = new ConsoleProvider();
-    logger = new Logger(consoleProvider);    
+    logger = new Logger(null);    
   });
   
   test('should be created', () => {
