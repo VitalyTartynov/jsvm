@@ -1,5 +1,8 @@
 ﻿const REGISTER = require('../architecture/sample/register.constant');
 
+/**
+ * Central processor unit.
+ */
 class Cpu {
   constructor(ram, registers, alu, flash) {
     this.ram = ram;
@@ -7,7 +10,7 @@ class Cpu {
     this.alu = alu;
     this.flash = flash;
 
-    // VM 16 bit, we should have ability to PUSH 2 bytes to stack
+    // VM 16 bit, we should have ability to PUSH 2 bytes to stack.
     this.stackPointerInitial = this.ram.length - 2;
     this.registers.set(REGISTER.SP.address, this.stackPointerInitial);
   }

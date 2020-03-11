@@ -1,11 +1,20 @@
 ﻿const format = require('./format');
 
-class HexMemoryLoader {
+/**
+ * Serialize/deserialize memory data to HEX string.
+ * It's 'human-friendly' string with HEX information like '0x01 0x02 0xFF'.
+ */
+class HexMemorySerializer {
   constructor() {
     this.delimeter = ' ';
   }
-  
-  save(memory) {
+
+  /**
+   * Serialize data from memory to HEX string.
+   * @param {Memory} memory Memory object.
+   * @return {string} Serialized data.
+   */
+  serialize(memory) {
     let result = '';
     for (let i = 0; i < memory.length; i++) {
       result += format.asByte(memory.byteAt[i]);
@@ -16,8 +25,14 @@ class HexMemoryLoader {
         
     return result;
   }
-    
-  load(data, memory) {
+
+  /**
+   * Deserialize HEX string to memory.
+   * @param {string} data Serialized data.
+   * @param {Memory} memory Memory object.
+   * @returns {undefined}
+   */
+  deserialize(data, memory) {
     const values = data.split(this.delimeter);
         
     if (values.length > memory.length) {
@@ -30,4 +45,4 @@ class HexMemoryLoader {
   }
 }
 
-module.exports = HexMemoryLoader;
+module.exports = HexMemorySerializer;

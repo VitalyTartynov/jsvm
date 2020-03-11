@@ -1,8 +1,11 @@
 ﻿const format = require('../common/format');
 
+/**
+ * CPU instruction information.
+ */
 class Instruction {
   /**
-     * CPU instruction instance
+     * CPU instruction instance.
      * @param {number} opcode Operation code.
      * @param {string} mnemonic Assemble command.
      * @param {string} description Some description about instruction and operands.

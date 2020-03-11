@@ -1,6 +1,9 @@
-﻿class Register {
+﻿/**
+ * CPU register information.
+ */
+class Register {
   /**
-   * Register instance
+   * Register instance.
    * @param {string} name Human-friendly name of register.
    * @param {number} address Address of register in internal register memory.
    * @param {string} description Some description about register.
