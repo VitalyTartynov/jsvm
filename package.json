@@ -1,6 +1,6 @@
 {
   "name": "jsvm",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "16 bit js virtual machine implementation",
   "main": "index.js",
   "scripts": {
