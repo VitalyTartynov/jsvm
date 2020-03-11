@@ -1,7 +1,7 @@
 ﻿/**
  * Console provider for logging information.
  */
-class ConsoleProvider {
+class ConsoleLogProvider {
 
   /**
    * Log debug message to console.
@@ -49,4 +49,4 @@ class ConsoleProvider {
   }
 }
 
-module.exports = ConsoleProvider;
+module.exports = ConsoleLogProvider;
