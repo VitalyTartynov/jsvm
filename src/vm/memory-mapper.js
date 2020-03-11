@@ -11,7 +11,7 @@ class MemoryMapper {
    * @param {object} device Device for map.
    * @param {number} start Start address.
    * @param {number} end End address.
-   * @param {boolean} remap Remap.
+   * @param {boolean} remap Remap memory to new device (change address).
    * @returns {undefined}
    */
   map(device, start, end, remap = true) {
@@ -29,7 +29,7 @@ class MemoryMapper {
   }
 
   getUint8(address) {
-    const region = this.findRegion(address);
+    const region = this._findRegion(address);
     const finalAddress = region.remap
       ? address - region.start
       : address;
@@ -37,7 +37,7 @@ class MemoryMapper {
   }
 
   setUint8(address, value) {
-    const region = this.findRegion(address);
+    const region = this._findRegion(address);
     const finalAddress = region.remap
       ? address - region.start
       : address;
@@ -45,7 +45,7 @@ class MemoryMapper {
   }
 
   getUint16(address) {
-    const region = this.findRegion(address);
+    const region = this._findRegion(address);
     const finalAddress = region.remap
       ? address - region.start
       : address;
@@ -53,14 +53,20 @@ class MemoryMapper {
   }
 
   setUint16(address, value) {
-    const region = this.findRegion(address);
+    const region = this._findRegion(address);
     const finalAddress = region.remap
       ? address - region.start
       : address;
     return region.device.setUint16(finalAddress, value);
   }
 
-  findRegion(address) {
+  /**
+   * Find mapped region by address.
+   * @param {number} address Address.
+   * @return {object} Region.
+   * @private
+   */
+  _findRegion(address) {
     let region = this.regions.find(r => address >= r.start && address <= r.end);
     if (!region) {
       throw new Error(`No memory region found for address ${address}`);
