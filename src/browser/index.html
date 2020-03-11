@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Setup emulation</title>
+    <meta charset="UTF-8">    
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div>
+        <div id="boot_options">
+            
+            <h4>Setup</h4>
+            <table>
+                
+                <tr>
+                    <td>Memory size</td>
+                    <td>
+                        <input id="memory_size" type="number" value="128" min="16" max="2048" step="16"> MB<br>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td>Video Memory size</td>
+                    <td>
+                        <input id="video_memory_size" type="number" value="8" min="1" max="128" step="1"> MB<br>
+                    </td>
+                </tr>
+    
+                <tr>
+                    <td colspan="2"><hr></td>
+                </tr>            
+            </table>
+    
+            <br>
+            <button id="start_emulation">
+                <a href="emulator.html">Start Emulation</a>
+            </button>
+        </div>
+    </div>    
+</body>
+</html>

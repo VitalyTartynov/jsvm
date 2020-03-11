@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Emulate</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div id="runtime_options">
+        <input type="button" value="Pause" id="run" disabled>
+        <input type="button" value="Reset" id="reset" disabled>
+        <input type="button" value="Exit" id="exit" disabled>
+        <input type="button" value="Memory Dump" id="memory_dump" disabled>        
+    </div>
+
+    <div id="screen_container" style="position: absolute; top: 100; z-index: 10;">
+        <div id="screen"></div>
+        <canvas id="vga"></canvas>
+        <div>
+            <textarea class="keyboard"></textarea>
+        </div>
+    </div>
+</body>
+</html>
