@@ -32,6 +32,7 @@
             "always"
         ],
         "no-var": "error",
+        "valid-jsdoc": "error",
         "require-jsdoc": ["error", {
             "require": {
                 "FunctionDeclaration": true,

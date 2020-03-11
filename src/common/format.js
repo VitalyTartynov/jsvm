@@ -1,6 +1,6 @@
 ﻿/**
  * Format byte value in HEX.
- * @param value Value in DEC.
+ * @param {number} value Value in DEC.
  * @returns {string} Result HEX value as string.
  */
 function asByte(value) {
@@ -9,7 +9,7 @@ function asByte(value) {
 
 /**
  * Format word value in HEX.
- * @param value Value in DEC.
+ * @param {number} value Value in DEC.
  * @returns {string} Result HEX value as string.
  */
 function asWord(value) {
@@ -18,7 +18,7 @@ function asWord(value) {
 
 /**
  * Format dword value in HEX.
- * @param value Value in DEC.
+ * @param {number} value Value in DEC.
  * @returns {string} Result HEX value as string.
  */
 function asDword(value) {
@@ -27,7 +27,7 @@ function asDword(value) {
 
 /**
  * Format qword value in HEX.
- * @param value Value in DEC.
+ * @param {number} value Value in DEC.
  * @returns {string} Result HEX value as string.
  */
 function asQword(value) {
@@ -36,8 +36,8 @@ function asQword(value) {
 
 /**
  * Format value to HEX with base.
- * @param value Value in DEC.
- * @param base 2 for byte, 4 for word, 8 for dword.
+ * @param {number} value Value in DEC.
+ * @param {number} base 2 for byte, 4 for word, 8 for dword.
  * @returns {string} Result HEX value as string.
  * @private
  */

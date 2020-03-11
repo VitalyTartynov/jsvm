@@ -3,9 +3,9 @@
 class Instruction {
   /**
      * CPU instruction instance
-     * @param opcode Operation code.
-     * @param mnemonic Assemble command.
-     * @param description Some description about instruction and operands.
+     * @param {number} opcode Operation code.
+     * @param {string} mnemonic Assemble command.
+     * @param {string} description Some description about instruction and operands.
      */
   constructor(opcode, mnemonic, description) {
     this.mnemonic = mnemonic;
