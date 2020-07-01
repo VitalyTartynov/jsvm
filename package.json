@@ -26,7 +26,7 @@
   "devDependencies": {
     "browserify": "^16.5.1",
     "eslint": "^7.2.0",
-    "jest": "^26.0.1",
+    "jest": "^26.1.0",
     "minimist": "^1.2.5"
   }
 }
