@@ -25,7 +25,7 @@
   "homepage": "https://github.com/VitalyTartynov/jsvm#readme",
   "devDependencies": {
     "browserify": "^17.0.0",
-    "eslint": "^7.12.1",
+    "eslint": "^7.14.0",
     "jest": "^26.6.2",
     "minimist": "^1.2.5"
   }
