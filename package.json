@@ -27,6 +27,6 @@
     "browserify": "^17.0.0",
     "eslint": "^7.17.0",
     "jest": "^27.0.6",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.6"
   }
 }
